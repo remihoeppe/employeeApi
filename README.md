@@ -1,0 +1,1 @@
+- Using lombok to help with Getter and Setters and NoArgsConstructors. Removes a lot of lines of code by just using annotations
