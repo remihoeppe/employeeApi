@@ -14,11 +14,15 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table
 @Getter
 @Setter
+@SQLDelete(sql = "UPDATE employee SET deleted = true WHERE id=?")
+@Where(clause = "deleted=false")
 public class Employee {
     @Id
     @SequenceGenerator(name = "employee_sequence", sequenceName = "employee_sequence", allocationSize = 1)
@@ -37,6 +41,7 @@ public class Employee {
     private String contractType;
     private String timeBase;
     private String weeklyHours;
+    private boolean deleted = Boolean.FALSE;
 
     @Transient
     private Integer timeWithCompany;

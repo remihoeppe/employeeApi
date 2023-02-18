@@ -1,6 +1,7 @@
 package com.employeeCreator.app.employee;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,19 @@ public class EmployeeService {
                     this.employeeMapper.employeeDtoToEmployee(employeeData);
             employeeRepository.save(newEmployee);
             return newEmployee;
+    }
+
+    public Employee updateEmployeeDetails(Long employeeId, EmployeeDTO employeeData) {
+            Optional<Employee> employeeOptional =
+                    employeeRepository.findById(employeeId);
+            if(employeeOptional.isEmpty()) {
+                return addNewEmployee(employeeData);
+            }
+
+            Employee updatedEmployee =
+                    this.employeeMapper.employeeDtoToEmployee(employeeData);
+            employeeRepository.save(updatedEmployee);
+            return updatedEmployee;
     }
 
     public void deleteEmployee(Long employeeId) {

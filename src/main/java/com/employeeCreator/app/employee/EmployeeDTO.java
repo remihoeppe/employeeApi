@@ -8,12 +8,10 @@ package com.employeeCreator.app.employee;
     import jakarta.persistence.Transient;
     import jakarta.validation.constraints.Min;
     import jakarta.validation.constraints.NotBlank;
+    import jakarta.validation.constraints.Past;
     import lombok.Getter;
     import lombok.NoArgsConstructor;
     import lombok.Setter;
-
-
-
 
 @Getter
 @Setter
@@ -45,7 +43,7 @@ public class EmployeeDTO {
     @NotBlank
     private String address;
 
-    @NotBlank
+    @Past
     private LocalDate startDate;
 
     // Can be null if on-going employment
