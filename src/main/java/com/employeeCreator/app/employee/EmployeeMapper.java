@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 
 @Mapper(componentModel = "spring")
@@ -24,5 +25,6 @@ public interface EmployeeMapper {
 
 
     Employee employeeDtoToEmployee(EmployeeDTO employeeData);
+    void updateEmployeeFromDto(EmployeeDTO updatedEmployeeData, @MappingTarget Employee employee);
 
 }

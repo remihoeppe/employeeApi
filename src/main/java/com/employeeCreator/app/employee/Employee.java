@@ -25,11 +25,9 @@ import org.hibernate.annotations.Where;
 @Where(clause = "deleted=false")
 public class Employee {
     @Id
-    @SequenceGenerator(name = "employee_sequence", sequenceName = "employee_sequence", allocationSize = 1)
-
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_sequence")
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String firstName;
     private String middleName;
     private String lastName;
@@ -72,33 +70,6 @@ public class Employee {
         this.timeBase = timeBase;
         this.weeklyHours = weeklyHours;
 
-    }
-
-    public Employee(
-            Long id,
-            String firstName,
-            String middleName,
-            String lastName,
-            String mobileNumber,
-            String email,
-            String address,
-            LocalDate startDate,
-            LocalDate endDate,
-            String contractType,
-            String timeBase,
-            String weeklyHours) {
-        this.id = id;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.mobileNumber = mobileNumber;
-        this.email = email;
-        this.address = address;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.contractType = contractType;
-        this.timeBase = timeBase;
-        this.weeklyHours = weeklyHours;
     }
 
     @Override

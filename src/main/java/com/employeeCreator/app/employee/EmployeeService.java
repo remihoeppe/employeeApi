@@ -38,16 +38,17 @@ public class EmployeeService {
     }
 
     public Employee updateEmployeeDetails(Long employeeId, EmployeeDTO employeeData) {
-            Optional<Employee> employeeOptional =
-                    employeeRepository.findById(employeeId);
-            if(employeeOptional.isEmpty()) {
-                return addNewEmployee(employeeData);
-            }
+        Optional<Employee> currentEmployee = employeeRepository.findById(employeeId);
+        Employee updatedEmployee;
+        if(currentEmployee.isPresent()) {
+            updatedEmployee = currentEmployee.get();
+        } else {
+            updatedEmployee = new Employee();
+        }
 
-            Employee updatedEmployee =
-                    this.employeeMapper.employeeDtoToEmployee(employeeData);
-            employeeRepository.save(updatedEmployee);
-            return updatedEmployee;
+        employeeMapper.updateEmployeeFromDto(employeeData, updatedEmployee);
+        employeeRepository.save(updatedEmployee);
+        return updatedEmployee;
     }
 
     public void deleteEmployee(Long employeeId) {

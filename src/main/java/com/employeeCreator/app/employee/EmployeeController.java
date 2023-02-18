@@ -32,13 +32,8 @@ public class EmployeeController {
         return new ResponseEntity<>(newEmployee, HttpStatus.CREATED);
     }
 
-//    public void registerNewEmployee(@RequestBody  Employee employee) {
-//        employeeService.addNewEmployee(employee);
-//    }
-
-    @PutMapping(path = "{employeeId}")
+    @PutMapping("/{employeeId}")
     // DO NOT THROW 404
-    // IF
     public ResponseEntity<Employee> updateEmployee(
             @PathVariable Long employeeId, @RequestBody EmployeeDTO employeeData)
     {

@@ -1,10 +1,6 @@
 package com.employeeCreator.app.employee;
 
     import java.time.LocalDate;
-    import jakarta.persistence.GeneratedValue;
-    import jakarta.persistence.GenerationType;
-    import jakarta.persistence.Id;
-    import jakarta.persistence.SequenceGenerator;
     import jakarta.persistence.Transient;
     import jakarta.validation.constraints.Min;
     import jakarta.validation.constraints.NotBlank;
@@ -17,10 +13,6 @@ package com.employeeCreator.app.employee;
 @Setter
 @NoArgsConstructor
 public class EmployeeDTO {
-    @Id
-    @SequenceGenerator(name = "employee_sequence", sequenceName = "employee_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_sequence")
-
     private Long id;
 
     @NotBlank
@@ -85,5 +77,4 @@ public class EmployeeDTO {
         this.timeBase = timeBase;
         this.weeklyHours = weeklyHours;
     }
-
 }
