@@ -11,6 +11,9 @@ public class EmployeeService {
     private final EmployeeRepository employeeRepository;
 
         @Autowired
+        private EmployeeMapper employeeMapper;
+
+        @Autowired
         public EmployeeService(EmployeeRepository employeeRepository) {
             this.employeeRepository = employeeRepository;
         }
@@ -27,15 +30,10 @@ public class EmployeeService {
                 throw new IllegalStateException("This email is already taken");
             };
 
-            employeeRepository.save(employeeData)
-
-            //           Optional<Employee> employeeOptional =
-//                   employeeRepository.findEmployeeByEmail(employeeData.getEmail());
-//
-//           if(employeeOptional.isPresent()) {
-//               throw new IllegalStateException("This email is already taken");
-//           }
-//           employeeRepository.save(employee);
+            Employee newEmployee =
+                    this.employeeMapper.employeeDtoToEmployee(employeeData);
+            employeeRepository.save(newEmployee);
+            return newEmployee;
     }
 
     public void deleteEmployee(Long employeeId) {

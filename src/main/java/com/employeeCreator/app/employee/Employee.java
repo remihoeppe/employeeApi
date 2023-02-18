@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,7 +19,6 @@ import lombok.Setter;
 @Table
 @Getter
 @Setter
-@NoArgsConstructor
 public class Employee {
     @Id
     @SequenceGenerator(name = "employee_sequence", sequenceName = "employee_sequence", allocationSize = 1)
@@ -40,6 +40,8 @@ public class Employee {
 
     @Transient
     private Integer timeWithCompany;
+
+    public Employee() {};
 
     public Employee(
             String firstName,
@@ -106,10 +108,11 @@ public class Employee {
                 '}';
     }
 
+
     // Allow to get a Tenure duration based on endDate if exists or on going time
     // with the company if employee is still under contract
     public Integer getTimeWithCompany() {
-        if (getEndDate() != null) {
+        if (this.getEndDate() != null) {
             return Period.between(startDate, endDate).getYears();
         } else {
             return Period.between(startDate, LocalDate.now()).getYears();
