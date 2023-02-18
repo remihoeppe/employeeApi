@@ -1,6 +1,8 @@
 package com.employeeCreator.app.employee;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,22 @@ public class EmployeeService {
 	}
 
 	    public void addNewEmployee(Employee employee) {
-            System.out.println(employee);
+           Optional<Employee> employeeOptional =
+                   employeeRepository.findEmployeeByEmail(employee.getEmail());
+
+           if(employeeOptional.isPresent()) {
+               throw new IllegalStateException("This email is already taken");
+           }
+           employeeRepository.save(employee);
+    }
+
+    public void deleteEmployee(Long employeeId) {
+            boolean exists = employeeRepository.existsById(employeeId);
+            if(!exists) {
+                throw new IllegalStateException(
+                        "Employee with id " + employeeId + " does not exist"
+                );
+            }
+            employeeRepository.deleteById(employeeId);
     }
 }
