@@ -1,7 +1,10 @@
 package com.employeeCreator.app.employee;
 
     import java.time.LocalDate;
+
+    import jakarta.persistence.Column;
     import jakarta.persistence.Transient;
+    import jakarta.persistence.UniqueConstraint;
     import jakarta.validation.constraints.Min;
     import jakarta.validation.constraints.NotBlank;
     import jakarta.validation.constraints.Past;
@@ -27,7 +30,7 @@ public class EmployeeDTO {
     // validation will be required to check for international code
     private String mobileNumber;
 
-    @NotBlank
+    @NotBlank @Column(unique = true)
     private String email;
 
     @NotBlank

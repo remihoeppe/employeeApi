@@ -39,6 +39,7 @@ public class EmployeeService {
 
     public Employee updateEmployeeDetails(Long employeeId, EmployeeDTO employeeData) {
         Optional<Employee> currentEmployee = employeeRepository.findById(employeeId);
+        
         Employee updatedEmployee;
         if(currentEmployee.isPresent()) {
             updatedEmployee = currentEmployee.get();
@@ -48,6 +49,7 @@ public class EmployeeService {
 
         employeeMapper.updateEmployeeFromDto(employeeData, updatedEmployee);
         employeeRepository.save(updatedEmployee);
+
         return updatedEmployee;
     }
 
