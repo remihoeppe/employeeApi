@@ -1,4 +1,4 @@
-package com.employeeCreator.demo;
+package com.employeeCreator.app;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
