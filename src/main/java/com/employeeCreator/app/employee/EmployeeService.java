@@ -19,14 +19,23 @@ public class EmployeeService {
 		    return employeeRepository.findAll();
 	}
 
-	    public void addNewEmployee(Employee employee) {
-           Optional<Employee> employeeOptional =
-                   employeeRepository.findEmployeeByEmail(employee.getEmail());
+	    public Employee addNewEmployee(EmployeeDTO employeeData) {
+            Optional<Employee> employeeOptional =
+                    employeeRepository.findEmployeeByEmail(employeeData.getEmail());
 
-           if(employeeOptional.isPresent()) {
-               throw new IllegalStateException("This email is already taken");
-           }
-           employeeRepository.save(employee);
+            if (employeeOptional.isPresent()) {
+                throw new IllegalStateException("This email is already taken");
+            };
+
+            employeeRepository.save(employeeData)
+
+            //           Optional<Employee> employeeOptional =
+//                   employeeRepository.findEmployeeByEmail(employeeData.getEmail());
+//
+//           if(employeeOptional.isPresent()) {
+//               throw new IllegalStateException("This email is already taken");
+//           }
+//           employeeRepository.save(employee);
     }
 
     public void deleteEmployee(Long employeeId) {

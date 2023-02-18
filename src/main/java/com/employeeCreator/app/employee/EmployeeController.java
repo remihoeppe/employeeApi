@@ -2,7 +2,10 @@ package com.employeeCreator.app.employee;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,9 +25,14 @@ public class EmployeeController {
     }
 
     @PostMapping("/")
-    public void registerNewEmployee(@RequestBody  Employee employee) {
-        employeeService.addNewEmployee(employee);
+    public ResponseEntity<Employee> registerNewEmployee(@Valid @RequestBody EmployeeDTO employeeData) {
+        Employee newEmployee = this.employeeService.addNewEmployee(employeeData);
+        return new ResponseEntity<>(newEmployee, HttpStatus.CREATED);
     }
+
+//    public void registerNewEmployee(@RequestBody  Employee employee) {
+//        employeeService.addNewEmployee(employee);
+//    }
 
     @DeleteMapping(path = "{employeeId}")
     public void deleteEmployee(@PathVariable("employeeId") Long employeeId) {
