@@ -13,8 +13,6 @@ package com.employeeCreator.app.employee;
 @Setter
 @NoArgsConstructor
 public class EmployeeDTO {
-    private Long id;
-
     @NotBlank
     private String firstName;
     // Can be null for employee with no middle names

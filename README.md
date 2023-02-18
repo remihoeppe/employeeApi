@@ -1,35 +1,103 @@
--   Using lombok to help with Getter and Setters and NoArgsConstructors. Removes a lot of lines of code by just using annotations
+# Employee Creator API
 
-Spring Testing (Integration / Unit) -> https://www.youtube.com/watch?v=Geq60OVyBPg
-Spring Testing Code Source -> https://github.com/amigoscode/spring-boot-fullstack-professional/tree/13-testing/src/test/java/com/example/demo
-Important for this project:
-Full tests suites
-Errors handlings, both backend and frontend
-Giving errors back to users (based on backend validations)
-Logging -> https://www.baeldung.com/spring-boot-logging
-Follow first snippet for MVP, go further if you've got time
-Host it somewhere
-Good documentation, use the documentation template in the post-course
-Stack:
-(Optional) Replace component axios calls with async thunks then you can (leave this till last)
-useQuery (React Query)
-SCSS modules (Make sure you have a naming conventions)
-React Form Hook
-All code formatting needs to be immaculate
-API Semantics must be followed, e.g right codes for right responses
-POST / PATCH -> PUT
-PUT -> rewrite if exists, create if not -> 200, 201, 400 (startDate < finishDate, finishDate is null, is ongoing is true)
-Add @CrossOrigin policy to you controller, otherwise you'll get cors errors
-Stack:
-React-ts w/ vite
-vitest instead of jest
-Spring
-React testing library
-axios frontend with proxy base url -> add "proxy" to package.json
-Gotchas:
-When working with javascrtipt libraries in typescript, you will often have to install the
+{add test badges here, all projects you build from here on out will have tests, therefore you should have github workflow badges at the top of your repositories: [Github Workflow Badges](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/adding-a-workflow-status-badge)}
 
-12:32
-@types/<package>
-12:33
-Get alex to help, get your tests running on a github CI both backend and frontend. (Add badges to your readme)
+## Demo & Snippets
+
+-   Include hosted link
+-   Include images of app if CLI or Client App
+
+---
+
+## Requirements / Purpose
+
+    We need a web application to create, list, modify and delete employees. 
+    The application should consist of a spring RESTful API and a React Typescript frontend. 
+    The schema for the employee is left to the criteria of the candidate.
+
+### Stack 
+
+- Java / SprinBoot
+  > Dependencies
+  - Spring Web,
+  - Validation I/O
+  - Spring Testing
+  - Spring Data JPA
+  - MySQL Driver
+  - Spring Devtools
+---
+
+## Build Steps
+
+-   how to build / run project
+-   use proper code snippets if there are any commands to run
+
+---
+
+## Design Goals / Approach
+
+-   Design goals
+-   why did you implement this the way you did?
+
+---
+
+## Features
+
+### API Endpoints
+
+- /employee
+    - GET => Returns all employees (that have not been archived)
+
+- /employee/{id}
+    - GET => Returns employee with a specific ID
+    - PUT => Will update employee with specific ID, however if ID is not found, a new employee
+      record will be created.
+    - DELETE => Will change the `deleted` field on the `Employee` to be true. 
+      This will make that employee with "invisible" from the "/employee" endpoint, 
+      without deleted the record from the database.
+    
+    
+
+---
+
+## Known issues
+
+-   Remaining bugs, things that have been left unfixed
+-   Features that are buggy / flimsy
+
+---
+
+## Future Goals
+
+-   What are the immediate features you'd add given more time
+
+---
+
+## Changelog
+
+-   Write a paragraph labelled with the date every day you work on the project to discuss what you've done for the say. Be specific about the changes that have happened for that day.
+
+### 13/02/2022 - {Theme of changes if applicable}
+
+-   Extended the expiry time of JWT tokens on the backend
+-   Added users to cohort response payload
+-   Centralized API base URL on frontend using the proxy `package.json` property
+
+---
+
+## What did you struggle with?
+
+-   What? Why? How?
+
+---
+
+## Licensing Details
+
+-   What type of license are you releasing this under?
+
+---
+
+## Further details, related projects, reimplementations
+
+-   Is this project a reimplementation for something you've done in the past? if so explain it and link it here.
+-   If it's an API, is there a client app that works with this project? link it
