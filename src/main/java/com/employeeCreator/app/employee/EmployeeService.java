@@ -39,11 +39,15 @@ public class EmployeeService {
 
     public Employee updateEmployeeDetails(Long employeeId, EmployeeDTO employeeData) {
         Optional<Employee> currentEmployee = employeeRepository.findById(employeeId);
-        
+
         Employee updatedEmployee;
         if(currentEmployee.isPresent()) {
             updatedEmployee = currentEmployee.get();
         } else {
+            Optional<Employee> optionalEmployee = employeeRepository.findEmployeeByEmail(employeeData.getEmail());
+            if (optionalEmployee.isPresent()) {
+                throw new IllegalStateException("This email is already taken");
+            };
             updatedEmployee = new Employee();
         }
 
