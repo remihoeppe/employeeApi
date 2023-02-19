@@ -19,9 +19,18 @@ public class EmployeeService {
             this.employeeRepository = employeeRepository;
         }
 
+        public Employee getEmployeeById(Long employeeId) {
+            Employee employee = employeeRepository.findById(employeeId)
+                    .orElseThrow(() -> new NoSuchElementException(
+                            String.format("No employee with the ID %s could be " +
+                            "found", employeeId)));
+
+            return employee;
+        }
+
     	public List<Employee> getEmployees() {
 		    return employeeRepository.findAll();
-	}
+	    }
 
 	    public Employee addNewEmployee(EmployeeDTO employeeData) {
             Optional<Employee> employeeOptional =
@@ -35,29 +44,29 @@ public class EmployeeService {
                     this.employeeMapper.employeeDtoToEmployee(employeeData);
             employeeRepository.save(newEmployee);
             return newEmployee;
-    }
-
-    public Employee updateEmployeeDetails(Long employeeId, EmployeeDTO employeeData) {
-        Optional<Employee> currentEmployee = employeeRepository.findById(employeeId);
-
-        Employee updatedEmployee;
-        if(currentEmployee.isPresent()) {
-            updatedEmployee = currentEmployee.get();
-        } else {
-            Optional<Employee> optionalEmployee = employeeRepository.findEmployeeByEmail(employeeData.getEmail());
-            if (optionalEmployee.isPresent()) {
-                throw new IllegalStateException("This email is already taken");
-            };
-            updatedEmployee = new Employee();
         }
 
-        employeeMapper.updateEmployeeFromDto(employeeData, updatedEmployee);
-        employeeRepository.save(updatedEmployee);
+        public Employee updateEmployeeDetails(Long employeeId, EmployeeDTO employeeData) {
+            Optional<Employee> currentEmployee = employeeRepository.findById(employeeId);
 
-        return updatedEmployee;
-    }
+            Employee updatedEmployee;
+            if(currentEmployee.isPresent()) {
+                updatedEmployee = currentEmployee.get();
+            } else {
+                Optional<Employee> optionalEmployee = employeeRepository.findEmployeeByEmail(employeeData.getEmail());
+                if (optionalEmployee.isPresent()) {
+                    throw new IllegalStateException("This email is already taken");
+                };
+                updatedEmployee = new Employee();
+            }
 
-    public void deleteEmployee(Long employeeId) {
+            employeeMapper.updateEmployeeFromDto(employeeData, updatedEmployee);
+            employeeRepository.save(updatedEmployee);
+
+            return updatedEmployee;
+        }
+
+        public void deleteEmployee(Long employeeId) {
             boolean exists = employeeRepository.existsById(employeeId);
             if(!exists) {
                 throw new IllegalStateException(
@@ -65,5 +74,5 @@ public class EmployeeService {
                 );
             }
             employeeRepository.deleteById(employeeId);
-    }
+        }
 }
