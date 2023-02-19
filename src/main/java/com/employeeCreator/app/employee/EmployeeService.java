@@ -24,7 +24,6 @@ public class EmployeeService {
                     .orElseThrow(() -> new NoSuchElementException(
                             String.format("No employee with the ID %s could be " +
                             "found", employeeId)));
-
             return employee;
         }
 
