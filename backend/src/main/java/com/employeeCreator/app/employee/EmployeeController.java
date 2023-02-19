@@ -13,6 +13,9 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/v1/employee")
+// Default Vite Server Port TODO -> Will need to be changed once Frontend has
+//  been deployed to AWS
+@CrossOrigin(origins = "http://127.0.0.1:5173/")
 public class EmployeeController {
     private final EmployeeService employeeService;
 

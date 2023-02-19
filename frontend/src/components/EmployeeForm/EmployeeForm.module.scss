@@ -1,0 +1,11 @@
+.EmployeeForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    &__Input {
+        label {
+            margin-right: 10px;
+        }
+    }
+}
