@@ -1,2 +1,20 @@
-.EmployeeList {
+@import "./../../styling/theme.module.scss";
+
+.EmployeesList {
+    &__Header {
+        display: flex;
+        justify-content: space-between;
+
+        margin-bottom: 30px;
+
+        &_AddBtn {
+            color: $primaryBtnText;
+            background-color: $primaryBtnBackground;
+            width: 25%;
+        }
+    }
+
+    &__AddBtn {
+        width: 30%;
+    }
 }

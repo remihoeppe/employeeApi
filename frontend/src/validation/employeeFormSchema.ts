@@ -33,20 +33,30 @@ export const employeeFormSchema = Yup.object().shape({
             "Please enter the date as YYYY-MM-DD",
         )
         .required("This field is required"),
-    endDate: Yup.string().matches(
-        /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/,
-        "Please enter the date as YYYY-MM-DD",
-    ),
+    endDate: Yup.string()
+        .test(
+            "endDate",
+            "End Date must either be empty or be entered as YYYY-MM-DD,",
+            (endDate) => {
+                if (endDate === "") {
+                    return true;
+                }
+                endDate?.match(
+                    /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/,
+                );
+            },
+        )
+        .notRequired(),
     contractType: Yup.string().test(
         "contractType",
         "Must be either Permanent or Contract",
         (contractType) =>
-            contractType === "permanent" || contractType === "contract",
+            contractType === "Permanent" || contractType === "Contract",
     ),
     timeBase: Yup.string().test(
         "contractType",
-        "Must be either Permanent or Contract",
-        (timeBase) => timeBase === "full time" || timeBase === "part time",
+        "Must be either Full Time or Part Time",
+        (timeBase) => timeBase === "Full time" || timeBase === "Part time",
     ),
     weeklyHours: Yup.string().required("This field is required"),
 });

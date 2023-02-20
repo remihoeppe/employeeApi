@@ -1,4 +1,5 @@
 export interface Employee {
+    id: string;
     firstName: String;
     middleName: String;
     lastName: String;
@@ -30,3 +31,21 @@ export type CreateEmployeeResponse = {
     timeBase: String;
     weeklyHours: String;
 };
+
+export type UpdateEmployeeResponse = {
+    id: string;
+    firstName: String;
+    middleName: String;
+    lastName: String;
+    mobileNumber: String;
+    email: String;
+    address: String;
+    startDate: Date;
+    endDate: Date;
+    contractType: String;
+    timeBase: String;
+    weeklyHours: String;
+    deleted: Boolean;
+};
+
+export type ArchiveEmployeResponse = "";

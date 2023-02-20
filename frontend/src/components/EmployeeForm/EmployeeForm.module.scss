@@ -19,6 +19,10 @@
             border-color: $primaryBorder;
         }
 
+        &_HoursInput {
+            width: 60px;
+        }
+
         &_Label {
             font-weight: 600;
         }
@@ -47,11 +51,25 @@
         }
     }
 
-    &__Btn {
-        background-color: $primaryBtn;
-
-        &_Out {
-            background-color: $secondaryBtn;
+    &__Btns {
+        button {
+            width: 150px;
+            margin: 10px;
         }
+
+        &_Btn {
+            background-color: $primaryBtnBackground;
+            color: $primaryBtnText;
+        }
+
+        &_BtnCancel {
+            color: $primaryText;
+            background-color: $secondaryBtn;
+            border: 1px solid $secondaryBtnBorder;
+        }
+    }
+
+    &__InvalidFeedback {
+        color: red;
     }
 }

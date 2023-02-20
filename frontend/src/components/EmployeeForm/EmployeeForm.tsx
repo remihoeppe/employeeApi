@@ -1,45 +1,80 @@
 import styles from "./EmployeeForm.module.scss";
-import {
-    useForm,
-    SubmitHandler,
-    FieldValues,
-    FieldError,
-    DeepMap,
-} from "react-hook-form";
-import * as Yup from "yup";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Employee } from "src/services/EmployeeResponse";
 import { employeeFormSchema } from "./../../validation/employeeFormSchema";
-import DatePicker from "../DatePicker/DatePicker";
-import { createEmployee } from "./../../services/apiServices";
+import {
+    createEmployee,
+    getEmployeeById,
+    updateEmployee,
+} from "./../../services/apiServices";
+import { useEffect, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
 
-type UserSubmitEmployeeForm = {
-    firstName: String;
-    middleName: String;
-    lastName: String;
-    mobileNumber: String;
-    email: String;
-    address: String;
-    startDate: Date;
-    endDate: Date;
-    contractType: String;
-    timeBase: String;
-    weeklyHours: String;
+const defaultData = {
+    firstName: "",
+    middleName: "",
+    lastName: "",
+    mobileNumber: "",
+    email: "",
+    address: "",
+    startDate: "",
+    endDate: "",
+    contractType: "",
+    timeBase: "",
+    weeklyHours: "",
 };
 
 const EmployeeForm = () => {
+    const [employeeData, setEmployeeData] = useState(defaultData);
+    const [isOngoing, setIsOnGoing] = useState(
+        employeeData.endDate === "" ? false : true,
+    );
+
+    const { id } = useParams();
+    const location = useLocation();
+
+    const getEmployeeDefaultData = async (id: string | undefined) => {
+        const data = id ? await getEmployeeById(id) : defaultData;
+        console.log(data);
+        setEmployeeData(data);
+    };
+
+    useEffect(() => {
+        getEmployeeDefaultData(id);
+        console.log("Location:", location);
+    }, []);
+
+    useEffect(() => {
+        console.log("EmployeData:", employeeData);
+    }, [employeeData]);
+
     const {
         register,
         handleSubmit,
-        watch,
         reset,
         formState: { errors },
-    } = useForm<Employee>({ resolver: yupResolver(employeeFormSchema) });
+    } = useForm<Employee>({
+        resolver: yupResolver(employeeFormSchema),
+    });
+
+    useEffect(() => {
+        if (id) {
+            console.log("ID is:, ", id);
+        }
+    });
 
     const onSubmit: SubmitHandler<Employee> = (data) => {
-        console.log("buttonclicked");
-        console.log(data);
-        createEmployee(data);
+        if (location.pathname === "/employees/newForm") createEmployee(data);
+        updateEmployee(data);
+    };
+
+    const handleOnGoingClick = () => {
+        setIsOnGoing(!isOngoing);
+    };
+
+    const defaultChecked = (employee: any, prop: any, condition: string) => {
+        return (employee[prop] = condition ? condition : false);
     };
 
     return (
@@ -60,11 +95,9 @@ const EmployeeForm = () => {
                         </label>
                         <input
                             id="firstName"
+                            defaultValue={employeeData.firstName}
                             type="text"
                             {...register("firstName")}
-                            className={`styles.EmployeeForm__Control ${
-                                errors.firstName ? "_Invalid" : ""
-                            }`}
                         />
                         <div className={styles.EmployeeForm__InvalidFeedback}>
                             {errors.firstName?.message}
@@ -80,11 +113,9 @@ const EmployeeForm = () => {
                         </label>
                         <input
                             id="middleName"
+                            defaultValue={employeeData.middleName}
                             type="text"
                             {...register("middleName")}
-                            className={`styles.EmployeeForm__Control ${
-                                errors.middleName ? "_Invalid" : ""
-                            }`}
                         />
                         <div className={styles.EmployeeForm__InvalidFeedback}>
                             {errors.middleName?.message}
@@ -101,11 +132,9 @@ const EmployeeForm = () => {
                         </label>
                         <input
                             id="lastName"
+                            defaultValue={employeeData.lastName}
                             type="text"
                             {...register("lastName")}
-                            className={`styles.EmployeeForm__Control ${
-                                errors.lastName ? "_Invalid" : ""
-                            }`}
                         />
                         <div className={styles.EmployeeForm__InvalidFeedback}>
                             {errors.lastName?.message}
@@ -125,11 +154,9 @@ const EmployeeForm = () => {
                         </p>
                         <input
                             id="mobileNumber"
+                            defaultValue={employeeData.mobileNumber}
                             type="text"
                             {...register("mobileNumber")}
-                            className={`styles.EmployeeForm__Control ${
-                                errors.mobileNumber ? "_Invalid" : ""
-                            }`}
                         />
                         <div className={styles.EmployeeForm__InvalidFeedback}>
                             {errors.mobileNumber?.message}
@@ -147,10 +174,8 @@ const EmployeeForm = () => {
                         <input
                             id="email"
                             type="text"
+                            defaultValue={employeeData.email}
                             {...register("email")}
-                            className={`styles.EmployeeForm__Control ${
-                                errors.email ? "_Invalid" : ""
-                            }`}
                         />
                         <div className={styles.EmployeeForm__InvalidFeedback}>
                             {errors.email?.message}
@@ -167,11 +192,9 @@ const EmployeeForm = () => {
                         <input
                             id="address"
                             type="text"
+                            defaultValue={employeeData.address}
                             placeholder="123 Example St, Sydney NSW 2000"
                             {...register("address")}
-                            className={`styles.EmployeeForm__Control ${
-                                errors.address ? "_Invalid" : ""
-                            }`}
                         />
                         <div className={styles.EmployeeForm__InvalidFeedback}>
                             {errors.address?.message}
@@ -187,11 +210,12 @@ const EmployeeForm = () => {
                                 <input
                                     id="permanent"
                                     type="radio"
-                                    value="permanent"
+                                    defaultChecked={
+                                        employeeData.contractType ===
+                                        "Permanent"
+                                    }
+                                    value="Permanent"
                                     {...register("contractType")}
-                                    className={`form-check-input ${
-                                        errors.contractType ? "_Invalid" : ""
-                                    }`}
                                 />
                                 <label
                                     htmlFor="permanent"
@@ -205,11 +229,11 @@ const EmployeeForm = () => {
                                 <input
                                     id="contract"
                                     type="radio"
-                                    value="contract"
+                                    defaultChecked={
+                                        employeeData.contractType === "Contract"
+                                    }
+                                    value="Contract"
                                     {...register("contractType")}
-                                    className={`form-check-input ${
-                                        errors.contractType ? "_Invalid" : ""
-                                    }`}
                                 />
                                 <label
                                     htmlFor="contract"
@@ -239,10 +263,9 @@ const EmployeeForm = () => {
                         <input
                             id="startDate"
                             type="text"
+                            defaultValue={employeeData.startDate}
+                            placeholder="YYYY-MM-DD"
                             {...register("startDate")}
-                            className={`styles.EmployeeForm__Control ${
-                                errors.startDate ? "_Invalid" : ""
-                            }`}
                         />
                         <div className={styles.EmployeeForm__InvalidFeedback}>
                             {errors.startDate?.message}
@@ -257,25 +280,23 @@ const EmployeeForm = () => {
                         <input
                             type="text"
                             {...register("endDate")}
-                            className={`styles.EmployeeForm__Control ${
-                                errors.endDate ? "_Invalid" : ""
-                            }`}
+                            defaultValue={employeeData.endDate}
+                            placeholder="YYYY-MM-DD"
+                            disabled={isOngoing ? true : false}
                         />
                         <div className={styles.EmployeeForm__InvalidFeedback}>
                             {errors.endDate?.message}
                         </div>
                     </div>
 
-                    {/* <div className={styles.EmployeeForm__Input}>
+                    <div className={styles.EmployeeForm__Input}>
                         <div className={styles.EmployeeForm__Input_Radio}>
                             <div>
                                 <input
                                     id="onGoing"
                                     type="checkbox"
-                                    {...register("endDate")}
-                                    className={`form-check-input ${
-                                        errors.endDate ? "_Invalid" : ""
-                                    }`}
+                                    defaultChecked={isOngoing}
+                                    onChange={handleOnGoingClick}
                                 />
                                 <label
                                     htmlFor="onGoing"
@@ -285,14 +306,8 @@ const EmployeeForm = () => {
                                     On Going
                                 </label>
                             </div>
-                            <div
-                                className={
-                                    styles.EmployeeForm__InvalidFeedback
-                                }>
-                                {errors.endDate?.message}
-                            </div>
                         </div>
-                    </div> */}
+                    </div>
 
                     {/* Time Basis */}
                     <div className={styles.EmployeeForm__Input}>
@@ -302,11 +317,11 @@ const EmployeeForm = () => {
                                 <input
                                     id="fullTime"
                                     type="radio"
-                                    value="full time"
+                                    defaultChecked={
+                                        employeeData.timeBase === "Full time"
+                                    }
+                                    value="Full time"
                                     {...register("timeBase")}
-                                    className={`form-check-input ${
-                                        errors.timeBase ? "_Invalid" : ""
-                                    }`}
                                 />
                                 <label
                                     htmlFor="fullTime"
@@ -320,11 +335,11 @@ const EmployeeForm = () => {
                                 <input
                                     id="partTime"
                                     type="radio"
-                                    value="part time"
+                                    defaultChecked={
+                                        employeeData.timeBase === "Part time"
+                                    }
+                                    value="Part time"
                                     {...register("timeBase")}
-                                    className={`form-check-input ${
-                                        errors.timeBase ? "_Invalid" : ""
-                                    }`}
                                 />
                                 <label
                                     htmlFor="partTime"
@@ -350,15 +365,14 @@ const EmployeeForm = () => {
                         <label
                             htmlFor="weeklyHours"
                             className={styles.EmployeeForm__Input_Label}>
-                            Weekly Hours
+                            Hours per week
                         </label>
                         <input
                             id="weeklyHours"
+                            defaultValue={employeeData.weeklyHours}
+                            className={styles.EmployeeForm__Input_HoursInput}
                             type="text"
                             {...register("weeklyHours")}
-                            className={`styles.EmployeeForm__Control ${
-                                errors.weeklyHours ? "_Invalid" : ""
-                            }`}
                         />
                         <div className={styles.EmployeeForm__InvalidFeedback}>
                             {errors.weeklyHours?.message}
@@ -366,20 +380,19 @@ const EmployeeForm = () => {
                     </div>
 
                     {/* Buttons */}
-                    <div className={styles.EmployeeForm__Input_Btns}>
+                    <div className={styles.EmployeeForm__Btns}>
                         <button
                             type="submit"
-                            className={styles.EmployeeForm__Btn}>
-                            Register
+                            className={styles.EmployeeForm__Btns_Btn}>
+                            Save
                         </button>
                         <button
                             type="button"
                             onClick={() => reset()}
-                            className={styles.EmployeeForm__Btn_Out}>
+                            className={styles.EmployeeForm__Btns_BtnCancel}>
                             Cancel
                         </button>
                     </div>
-                    {/* <DatePicker /> */}
                 </form>
             </div>
         </>
