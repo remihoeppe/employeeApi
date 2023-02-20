@@ -12,3 +12,21 @@ export interface Employee {
     weeklyHours: String;
     deleted: Boolean;
 }
+
+export type GetEmployeesResponse = {
+    data: Employee[];
+};
+
+export type CreateEmployeeResponse = {
+    firstName: String;
+    middleName: String;
+    lastName: String;
+    mobileNumber: String;
+    email: String;
+    address: String;
+    startDate: Date;
+    endDate: Date;
+    contractType: String;
+    timeBase: String;
+    weeklyHours: String;
+};

@@ -11,6 +11,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Employee } from "src/services/EmployeeResponse";
 import { employeeFormSchema } from "./../../validation/employeeFormSchema";
 import DatePicker from "../DatePicker/DatePicker";
+import { createEmployee } from "./../../services/apiServices";
 
 type UserSubmitEmployeeForm = {
     firstName: String;
@@ -38,6 +39,7 @@ const EmployeeForm = () => {
     const onSubmit: SubmitHandler<Employee> = (data) => {
         console.log("buttonclicked");
         console.log(data);
+        createEmployee(data);
     };
 
     return (

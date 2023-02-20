@@ -1,25 +1,17 @@
 import { useEffect, useState } from "react";
 import styles from "./App.module.scss";
 import EmployeeForm from "./components/EmployeeForm/EmployeeForm";
-import { getData } from "./services/employeeApi";
+
 import { Employee } from "./services/EmployeeResponse";
+import { getAllEmployees } from "./services/apiServices";
+import EmployeesList from "./components/EmployeesList/EmployeesList";
 
 const App = () => {
-    // (async (): Promise<void> => {
-    //     const data = await getData();
-    //     console.log(data);
-    // })();
-
     const [data, setData] = useState<Employee[]>([]);
 
     const getEmployeesData = async (): Promise<void> => {
-        const result = await getData();
-        if (Array.isArray(result)) {
-            setData(result);
-        } else {
-            // handle error
-            console.error(result.message);
-        }
+        const data = await getAllEmployees();
+        setData(data);
     };
 
     useEffect(() => {
@@ -29,8 +21,8 @@ const App = () => {
     return (
         <div className={styles.App}>
             {/* <h1>Employee Creator</h1> */}
-
-            <EmployeeForm />
+            <EmployeesList employeesData={data} />
+            {/* <EmployeeForm /> */}
         </div>
     );
 };
