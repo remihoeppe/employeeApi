@@ -65,8 +65,9 @@ const EmployeeForm = () => {
     });
 
     const onSubmit: SubmitHandler<Employee> = (data) => {
-        if (location.pathname === "/employees/newForm") createEmployee(data);
-        updateEmployee(data);
+        // if (location.pathname === "/employees/newForm")
+        createEmployee(data);
+        // updateEmployee(data);
     };
 
     const handleOnGoingClick = () => {

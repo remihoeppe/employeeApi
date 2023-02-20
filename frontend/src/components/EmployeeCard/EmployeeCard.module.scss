@@ -20,6 +20,9 @@
             color: $primaryBtnBackground;
             text-decoration: underline;
             margin: 0px;
+            &:hover {
+                cursor: pointer;
+            }
         }
     }
 }

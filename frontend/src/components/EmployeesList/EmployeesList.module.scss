@@ -10,7 +10,12 @@
         &_AddBtn {
             color: $primaryBtnText;
             background-color: $primaryBtnBackground;
+            border-radius: 5px;
             width: 25%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     }
 

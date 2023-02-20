@@ -3,6 +3,7 @@ package com.employeeCreator.app.employee;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,7 @@ public class EmployeeService {
         }
 
     	public List<Employee> getEmployees() {
-		    return employeeRepository.findAll();
+		    return employeeRepository.findAll().stream().filter(employee -> employee.getDeleted().equals(false)).collect(Collectors.toList());
 	    }
 
 	    public Employee addNewEmployee(EmployeeDTO employeeData) {

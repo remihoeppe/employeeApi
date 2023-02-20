@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
 import styles from "./App.module.scss";
 import EmployeeForm from "./components/EmployeeForm/EmployeeForm";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Employee } from "./services/EmployeeResponse";
-import { getAllEmployees } from "./services/apiServices";
+import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
+
 import EmployeesList from "./components/EmployeesList/EmployeesList";
+import NavBar from "./components/NavBar/NavBar";
 
 const App = () => {
     return (
         <div className={styles.App}>
             <BrowserRouter>
+                <NavBar />
                 <Routes>
                     <Route path="/" element={<h1>Employee Creator</h1>} />
                     <Route path="/employees" element={<EmployeesList />} />

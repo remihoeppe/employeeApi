@@ -24,7 +24,7 @@ public class EmployeeConfig {
                 LocalDate.of(1879,03,17),
                 LocalDate.of(1889,06,30),
                 "Permanent",
-                "Full Time",
+                "Full time",
                 "38"
             );
 
@@ -38,7 +38,7 @@ public class EmployeeConfig {
                     LocalDate.of(2000,03,17),
                     LocalDate.of(2005,06,30),
                     "Permanent",
-                    "Full Time",
+                    "Full time",
                     "25"
             );
 

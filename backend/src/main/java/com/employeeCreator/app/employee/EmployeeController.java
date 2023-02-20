@@ -63,7 +63,9 @@ public class EmployeeController {
         }
     }
 
+    @CrossOrigin(origins = "http://127.0.0.1:5173/")
     @PutMapping("/{employeeId}")
+
     // DO NOT THROW 404
     public ResponseEntity updateEmployee(
             @PathVariable Long employeeId, @RequestBody EmployeeDTO employeeData)
