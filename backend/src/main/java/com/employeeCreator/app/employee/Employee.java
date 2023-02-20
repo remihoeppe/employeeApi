@@ -22,7 +22,8 @@ import org.hibernate.annotations.Where;
 @Getter
 @Setter
 @SQLDelete(sql = "UPDATE employee SET deleted = true WHERE id=?")
-@Where(clause = "deleted=false")
+//@Where(clause = "deleted=false")
+// TODO -> Replace with service layer method filtering
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +40,7 @@ public class Employee {
     private String contractType;
     private String timeBase;
     private String weeklyHours;
-    private boolean deleted = Boolean.FALSE;
+    private Boolean deleted = Boolean.FALSE;
 
     @Transient
     private Integer timeWithCompany;
@@ -69,7 +70,6 @@ public class Employee {
         this.contractType = contractType;
         this.timeBase = timeBase;
         this.weeklyHours = weeklyHours;
-
     }
 
     @Override
