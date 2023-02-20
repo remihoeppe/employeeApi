@@ -136,13 +136,42 @@ Finally, there is also an ultra simplistic styling component `<Separator>` that 
 
 ## Changelog
 
--   Write a paragraph labelled with the date every day you work on the project to discuss what you've done for the say. Be specific about the changes that have happened for that day.
+### 20/02/2023 - Frontend React-TypeScript Vite, Component Creation, Axios and Form setup
 
-### 13/02/2022 - {Theme of changes if applicable}
+-   FEATURE: Adds Axios UPDATE/PUT + ARCHIVE/DELETE methods. Adds Styling
+    for EmployeeFOrm, EmployeeCard, EmployeeList. Adds Schema Validation fix.
+-   FEATURE: adds EmployeeList + EmployeeCard component TSX. Adds Axios methods for getAll + CREATE/POST
+-   FIX: Debuggs Backend test issue with H2 local DB - @where creating SQ…
+    statement error - JdbcSQLSyntaxErrorException. Will need to make sure that Filtering happens in Service Layer
+-   MINOR CHANGE: Fixed validation issues for ContractType and TimeBase radio selection in Yup Schema
+-   FEATURE: Add EmployeeForm compomenent with YUP schema validation + Simple SCSS styling. Using React Form Hook
+-   FRONT END FIRST COMMIT: Initialised TS-REACT app with Vite + Created Compoent Tree + Test API Response + Added CORS to BackEnd + Installed React Hook Form
 
--   Extended the expiry time of JWT tokens on the backend
--   Added users to cohort response payload
--   Centralized API base URL on frontend using the proxy `package.json` property
+### 19/02/2023 - Backend API Error Handling and Testing Setup
+
+-   MINOR CHANGE: Adds BACKEND director to employeeAPI folder
+-   FEATURE: Set up basic Tests using JUNIT and AssertJ Libraries
+-   FEATURE: Adds API Error messages to users. Simple strategy will need reworking
+-   FEATURE: Adds Logging strategy for each endpoint using the SLF4J library
+-   MINOR CHANGE: Adds Logic in Service layer to handle unique email error
+
+### 18/02/2023 - Backend API POST, PUT, DELETE endpoints setup
+
+-   MINOR CHANGE: Adds Unique constraints on email field
+-   FEATURE: Adds REAMDE content
+-   FEATURE: updates the updateEmployeeDetails in the Service Layer for the PUT endpoint
+-   FEATURE: Adds soft delete with deleted field on Employee table. Deleted Employee will not show when fetching all employees
+-   MINOR CHANGE: Fix Mapper Typo Spring Bean
+-   CONFIG: Adds MapStruct to pom.xml dependency list
+-   FEATURE: Completes POST endpoint. Adds hard DELETE endpoint. Adds EmployeeDTO
+-   FEATURES: Adds extra fields for Employee Entity to match MVP. Adds Transient timeWithCompany field calculated based on startDate + endDate/Date.now. Creates Basis for POST endpoint.
+
+### 17/02/2023 - Project Initialization
+
+-   MINOR CHANGE: Renames main class to be App.java
+-   Adds Employee Controller and Service Layer as well as connection to l…
+-   Initialized SpringBoot Project with HelloWorld GET Request - WORKING
+-   Initial commit
 
 ---
 
