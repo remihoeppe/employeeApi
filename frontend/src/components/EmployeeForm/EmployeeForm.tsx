@@ -36,9 +36,8 @@ const EmployeeForm = () => {
     } = useForm<Employee>({ resolver: yupResolver(employeeFormSchema) });
 
     const onSubmit: SubmitHandler<Employee> = (data) => {
-        const contractType = data.contractType[0];
-
-        console.log({ ...data, contractType });
+        console.log("buttonclicked");
+        console.log(data);
     };
 
     return (
@@ -167,13 +166,13 @@ const EmployeeForm = () => {
                             id="address"
                             type="text"
                             placeholder="123 Example St, Sydney NSW 2000"
-                            {...register("email")}
+                            {...register("address")}
                             className={`styles.EmployeeForm__Control ${
-                                errors.email ? "_Invalid" : ""
+                                errors.address ? "_Invalid" : ""
                             }`}
                         />
                         <div className={styles.EmployeeForm__InvalidFeedback}>
-                            {errors.email?.message}
+                            {errors.address?.message}
                         </div>
                     </div>
 
@@ -265,7 +264,7 @@ const EmployeeForm = () => {
                         </div>
                     </div>
 
-                    <div className={styles.EmployeeForm__Input}>
+                    {/* <div className={styles.EmployeeForm__Input}>
                         <div className={styles.EmployeeForm__Input_Radio}>
                             <div>
                                 <input
@@ -291,7 +290,7 @@ const EmployeeForm = () => {
                                 {errors.endDate?.message}
                             </div>
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* Time Basis */}
                     <div className={styles.EmployeeForm__Input}>
@@ -343,6 +342,27 @@ const EmployeeForm = () => {
                         </div>
                     </div>
 
+                    {/* Weekly Hours */}
+
+                    <div className={styles.EmployeeForm__Input}>
+                        <label
+                            htmlFor="weeklyHours"
+                            className={styles.EmployeeForm__Input_Label}>
+                            Weekly Hours
+                        </label>
+                        <input
+                            id="weeklyHours"
+                            type="text"
+                            {...register("weeklyHours")}
+                            className={`styles.EmployeeForm__Control ${
+                                errors.weeklyHours ? "_Invalid" : ""
+                            }`}
+                        />
+                        <div className={styles.EmployeeForm__InvalidFeedback}>
+                            {errors.weeklyHours?.message}
+                        </div>
+                    </div>
+
                     {/* Buttons */}
                     <div className={styles.EmployeeForm__Input_Btns}>
                         <button
@@ -357,6 +377,7 @@ const EmployeeForm = () => {
                             Cancel
                         </button>
                     </div>
+                    {/* <DatePicker /> */}
                 </form>
             </div>
         </>

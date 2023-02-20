@@ -37,13 +37,16 @@ export const employeeFormSchema = Yup.object().shape({
         /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/,
         "Please enter the date as YYYY-MM-DD",
     ),
-    contractType: Yup.array().min(
-        1,
-        "You must select a contract type for this employee",
+    contractType: Yup.string().test(
+        "contractType",
+        "Must be either Permanent or Contract",
+        (contractType) =>
+            contractType === "permanent" || contractType === "contract",
     ),
-    timeBase: Yup.array().min(
-        1,
-        "You must select a time basis for this employee",
+    timeBase: Yup.string().test(
+        "contractType",
+        "Must be either Permanent or Contract",
+        (timeBase) => timeBase === "full time" || timeBase === "part time",
     ),
     weeklyHours: Yup.string().required("This field is required"),
 });
