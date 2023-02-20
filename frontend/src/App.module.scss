@@ -1,19 +1,10 @@
-.App {
-    @keyframes logo-spin {
-        from {
-            transform: rotate(0deg);
-        }
-        to {
-            transform: rotate(360deg);
-        }
-    }
+@import "./styling/theme.module.scss";
 
+.App {
+    color: $primaryText;
     display: flex;
     justify-content: center;
-    align-items: center;
+    // align-items: center;
 
     flex-direction: column;
-
-    // @media() {
-    // }
 }

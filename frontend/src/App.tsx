@@ -28,7 +28,7 @@ const App = () => {
 
     return (
         <div className={styles.App}>
-            <h1>Employee Creator</h1>
+            {/* <h1>Employee Creator</h1> */}
 
             <EmployeeForm />
         </div>

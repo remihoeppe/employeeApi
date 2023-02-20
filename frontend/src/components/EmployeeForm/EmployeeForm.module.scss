@@ -1,11 +1,57 @@
+@import "./../../styling/theme.module.scss";
+
 .EmployeeForm {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    align-items: flex-start;
+    justify-content: right;
 
     &__Input {
-        label {
-            margin-right: 10px;
+        display: flex;
+        flex-direction: column;
+        margin: 10px 0px 10px 20px;
+
+        input {
+            height: 24px;
+            border-width: 1.5px;
+            border-radius: 5px;
+            border-color: $primaryBorder;
+        }
+
+        &_Label {
+            font-weight: 600;
+        }
+
+        &_Radio {
+            display: flex;
+            flex-direction: column;
+
+            label {
+                font-weight: normal;
+            }
+
+            input {
+                margin-top: -1px;
+                margin-right: 15px;
+                transform: scale(1.5);
+                vertical-align: middle;
+            }
+        }
+
+        &_Helper {
+            font-size: 10px;
+            color: $helperText;
+            margin: 0px;
+            padding: 0px;
+        }
+    }
+
+    &__Btn {
+        background-color: $primaryBtn;
+
+        &_Out {
+            background-color: $secondaryBtn;
         }
     }
 }
