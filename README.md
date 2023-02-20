@@ -102,7 +102,7 @@ Finally, there is also an ultra simplistic styling component `<Separator>` that 
     > Allow user to viusale all current employees\
     > API Endpoint: /employee -> GET => Returns all employees (that have not been archived)
 
-    ![](README-docs/EmployeesList.png)
+    ![](./README-docs/EmployeesList.png)
 
 -   Component(s): EmployeeForm\
     URL: /employees/newEmployee or /employees/:id
@@ -110,8 +110,8 @@ Finally, there is also an ultra simplistic styling component `<Separator>` that 
     > Allows to either create a new employee or to visualise a current employee's detail and to save modification made to their profile.\
     > API Endpoint: /employee/:id -> POST or PUT => Save new employee or changes for current employee
 
-    ![](README-docs/EmployeeCard1.png)
-    ![](README-docs/EmployeeCard2.png)
+    ![](./README-docs/EmployeeCard1.png)
+    ![](./README-docs/EmployeeCard2.png)
 
 ---
 
