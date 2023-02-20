@@ -41,9 +41,7 @@
 
 ### Requirements
 
-```
 This project will require you to have a few things already installed on your machine in order to run it. If you do not have that on your machine, check out the links attached.
-```
 
 &rarr; [Node.js](https://nodejs.org/en/) \
 &rarr; [mySQL](https://www.mysql.com/downloads/) as well as your favorite SQL Database Management System (DBMS), I use [MySQLWorkbench](https://dev.mysql.com/downloads/workbench/) \
@@ -52,35 +50,32 @@ This project will require you to have a few things already installed on your mac
 
 ### Frontend
 
-```
 For non hosted version:
-> Once the repository cloned to your local machine, run the below commands in your terminal / GitBash from the project directory
-> cd frontend
-> npm run dev
+
+> Once the repository cloned to your local machine, run the below commands in your terminal / GitBash from the project directory\
+> `cd frontend`\
+> `npm run dev`
 
 Vite will display which port to access on your localhost (e.g. http://localhost:5173/)
-```
 
 ### Backend
 
-```
-# SprinBoot Server
-> Once you have cloned the project's repository to your local machine you will want to import that project into your IDE as a Maven project
-> Configure the application main class to run App.java using JDK v.17
-> Run the application
-> This will launch an instance of the SpringBoot server on your machine's port 8080 (http://localhost:8080)
+-   SprinBoot Server
 
+    > Once you have cloned the project's repository to your local machine you will want to import that project into your IDE as a Maven project\
+    > Configure the application main class to run App.java using JDK v.17\
+    > Run the application\
+    > This will launch an instance of the SpringBoot server on your machine's port 8080 (http://localhost:8080)
 
-# SQL Database
-> If the project is run locally, you will also need an database instance to connect to your server.
-> Create a new mySQL DB in your DBMS
-> Update the application.properties file in your /backend/src/main/resources
-  > spring.datasource.url = <YOUR_DB_URL>
-  > spring.datasource.username = <YOUR_USERNAME>
-  > spring.datasource.password = <YOUR_PASSWORD>
+-   SQL Database
 
-> If you've connected your DB properly, every time you start the server, the DB should drop the `employee` table and populate it with 2 entries.
-```
+    > If the project is run locally, you will also need an database instance to connect to your server.\
+    > Create a new mySQL DB in your DBMS\
+    > Update the application.properties file in your /backend/src/main/resources\
+    > `spring.datasource.url = <YOUR_DB_URL>`\
+    > `spring.datasource.username = <YOUR_USERNAME>`\
+    > `spring.datasource.password = <YOUR_PASSWORD>`\
+    > If you've connected your DB properly, every time you start the server, the DB should drop the `employee` table and populate it with 2 entries.
 
 That's it. You have a full stack, locally run, application.
 
@@ -101,19 +96,17 @@ Finally, there is also an ultra simplistic styling component `<Separator>` that 
 
 ## Features
 
-```
-Component(s): EmployeesList + EmployeeCard
-URL: /employees
-> Allow user to viusale all current employees
-API Endpoint: /employee -> GET => Returns all employees (that have not been archived)
-```
+-   Component(s): EmployeesList + EmployeeCard
+    URL: /employees
 
-```
-Component(s): EmployeeForm
-URL: /employees/newEmployee or /employees/:id
-> Allows to either create a new employee or to visualise a current employee's detail and to save modification made to their profile.
-API Endpoint: /employee/:id -> POST or PUT => Save new employee or changes for current employee
-```
+    > Allow user to viusale all current employees\
+    > API Endpoint: /employee -> GET => Returns all employees (that have not been archived)
+
+-   Component(s): EmployeeForm\
+    URL: /employees/newEmployee or /employees/:id
+
+    > Allows to either create a new employee or to visualise a current employee's detail and to save modification made to their profile.\
+    > API Endpoint: /employee/:id -> POST or PUT => Save new employee or changes for current employee
 
 ---
 
@@ -187,3 +180,7 @@ I removed that and implement this filtering functionality inside my Service Laye
 
 -   Is this project a reimplementation for something you've done in the past? if so explain it and link it here.
 -   If it's an API, is there a client app that works with this project? link it
+
+```
+
+```
