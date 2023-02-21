@@ -1,6 +1,5 @@
 package com.employeeCreator.app.employee;
 
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -9,23 +8,12 @@ import org.junit.runner.RunWith;
 import org.mapstruct.factory.Mappers;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import java.time.LocalDate;
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-
-import static org.assertj.core.api.InstanceOfAssertFactories.optional;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
@@ -34,28 +22,26 @@ import static org.mockito.Mockito.*;
 @SpringBootTest(classes = {EmployeeMapperImpl.class})
 @ExtendWith(MockitoExtension.class)
 class EmployeeServiceTest {
-
     @Mock
     private EmployeeRepository employeeRepository;
-
-//    @Autowired
     private EmployeeService underTest;
-
     @Mock
     private EmployeeMapper employeeMapper = Mappers.getMapper(EmployeeMapper.class);
-
     @BeforeEach
     void setUp() {
         underTest = new EmployeeService(employeeRepository, employeeMapper);
     }
 
+
     @Test
-    void canGetAllEmployees() {
-        // When
-        underTest.getEmployees();
-        // Then
-        verify(employeeRepository).findAll();
-        //
+    @Disabled
+    void getEmployeeById() {
+        //Given
+        long id = 1;
+        //When
+        underTest.getEmployeeById(id);
+        //Then
+        verify(employeeRepository).findById(id);
     }
 
     @Test
@@ -102,40 +88,70 @@ class EmployeeServiceTest {
                 "Full Time",
                 "38"
         );
-
-        given(employeeRepository.findEmployeeByEmail(newEmployee.getEmail()).isPresent()).willReturn(true);
-
+        given(employeeRepository.selectExistsEmail(anyString())).willReturn(true);
         //When - Then
         assertThatThrownBy(() -> underTest.addNewEmployee(newEmployee))
                 .isInstanceOf(IllegalStateException.class)
                 .hasMessageContaining("This email is already taken");
-
-
+        verify(employeeRepository, never()).save(any());
     }
-
-    @Test
-    @Disabled
-    void getEmployeeById() {
-        //When
-
-        //Then
-    }
-
-
 
     @Test
     @Disabled
     void updateEmployeeDetails() {
+        //Given
+        long id = 1;
+        EmployeeDTO employeeData = new EmployeeDTO(
+            "John",
+                    "Mac",
+                    "H.",
+                    "6666666",
+                    "john@bill.com",
+                    "NSW",
+                    LocalDate.of(2000,03,17),
+                    LocalDate.of(2020,06,30),
+                    "Permanent",
+                    "Full Time",
+                    "38"
+        );
         //When
-
+        given(employeeRepository.existsById(id)).willReturn(true);
         //Then
+        //When
+        underTest.addNewEmployee(employeeData);
+        Employee newEmployee =
+                employeeMapper.employeeDtoToEmployee(employeeData);
+        //Then (save an Employee)
+        ArgumentCaptor<Employee> employeeArgumentCaptor =
+                ArgumentCaptor.forClass(Employee.class);
+        assertThat(verify(employeeRepository).findById(id)).isEqualTo(2);
+        verify(employeeRepository).save(employeeArgumentCaptor.capture());
+        Employee capturedEmployee = employeeArgumentCaptor.getValue();
+        assertThat(capturedEmployee).isEqualTo(newEmployee);
     }
 
     @Test
-    @Disabled
-    void deleteEmployee() {
+    void canDeleteEmployee() {
+        //Given
+        long id = 1;
+        given(employeeRepository.existsById(id)).willReturn(true);
         //When
-
+        underTest.deleteEmployee(id);
         //Then
+        verify(employeeRepository).deleteById(id);
     }
+
+    @Test
+    void deleteWillThrowIfEmployeeIdDoesNotExist() {
+        //Given
+        long id = 99;
+        given(employeeRepository.existsById(id)).willReturn(false);
+        //When - Then
+        assertThatThrownBy(() -> underTest.deleteEmployee(id))
+                .isInstanceOf(IllegalStateException.class)
+                .hasMessageContaining( "Employee with id " + id + " does not " +
+                        "exist");
+        verify(employeeRepository, never()).deleteById(any());
+    }
+
 }

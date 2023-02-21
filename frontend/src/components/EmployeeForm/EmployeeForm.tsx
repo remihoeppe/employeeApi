@@ -129,7 +129,7 @@ const EmployeeForm = () => {
                         <label
                             htmlFor="lastName"
                             className={styles.EmployeeForm__Input_Label}>
-                            Full Name
+                            Last Name
                         </label>
                         <input
                             id="lastName"
@@ -169,7 +169,7 @@ const EmployeeForm = () => {
                         <label
                             htmlFor="email"
                             className={styles.EmployeeForm__Input_Label}>
-                            Email address
+                            Email Address
                         </label>
 
                         <input
@@ -277,8 +277,13 @@ const EmployeeForm = () => {
                     {/* TODO -> Replace with DatePicker component  */}
 
                     <div className={styles.EmployeeForm__Input}>
-                        <label>End Date</label>
+                        <label
+                            htmlFor="endDate"
+                            className={styles.EmployeeForm__Input_Label}>
+                            End Date
+                        </label>
                         <input
+                            id="endDate"
                             type="text"
                             {...register("endDate")}
                             defaultValue={employeeData.endDate}

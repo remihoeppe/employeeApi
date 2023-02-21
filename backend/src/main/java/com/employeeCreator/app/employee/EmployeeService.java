@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
-
         @Autowired
         private EmployeeMapper employeeMapper;
 
@@ -38,13 +37,11 @@ public class EmployeeService {
 	    }
 
 	    public Employee addNewEmployee(EmployeeDTO employeeData) {
-            Optional<Employee> employeeOptional =
-                    employeeRepository.findEmployeeByEmail(employeeData.getEmail());
-
-            if (employeeOptional.isPresent()) {
+            Boolean emailExists =
+                    employeeRepository.selectExistsEmail(employeeData.getEmail());
+            if (emailExists) {
                 throw new IllegalStateException("This email is already taken");
             };
-
             Employee newEmployee =
                     this.employeeMapper.employeeDtoToEmployee(employeeData);
             employeeRepository.save(newEmployee);
@@ -52,22 +49,20 @@ public class EmployeeService {
         }
 
         public Employee updateEmployeeDetails(Long employeeId, EmployeeDTO employeeData) {
-            Optional<Employee> currentEmployee = employeeRepository.findById(employeeId);
-
+            boolean exists = employeeRepository.findById(employeeId).isPresent();
             Employee updatedEmployee;
-            if(currentEmployee.isPresent()) {
-                updatedEmployee = currentEmployee.get();
+            if(exists) {
+                updatedEmployee =  employeeRepository.findById(employeeId).get();
             } else {
-                Optional<Employee> optionalEmployee = employeeRepository.findEmployeeByEmail(employeeData.getEmail());
-                if (optionalEmployee.isPresent()) {
+                Boolean emailExists =
+                        employeeRepository.selectExistsEmail(employeeData.getEmail());
+                if (emailExists) {
                     throw new IllegalStateException("This email is already taken");
                 };
                 updatedEmployee = new Employee();
             }
-
             employeeMapper.updateEmployeeFromDto(employeeData, updatedEmployee);
             employeeRepository.save(updatedEmployee);
-
             return updatedEmployee;
         }
 

@@ -47,7 +47,7 @@ describe("Testing EmployeeCard", () => {
         expect(mockProps.onDelete).toHaveBeenCalled();
     });
 
-    it("display the right information for the employee", async () => {
+    it("Should display the right information for the employee", async () => {
         const tenure = getTenure(
             mockProps.employee.startDate,
             mockProps.employee.endDate,
@@ -66,4 +66,7 @@ describe("Testing EmployeeCard", () => {
         const email = screen.getByTestId("email");
         expect(email).toHaveTextContent(mockProps.employee.email);
     });
+
+    // TODO -> Add test to check functionality of NavLink (redirecting to Form page)
+    it("Should redirect to the pre-filled form page when the use click on the Edit NavLink", () => {});
 });

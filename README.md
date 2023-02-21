@@ -117,6 +117,17 @@ Finally, there is also an ultra simplistic styling component `<Separator>` that 
 
 ## Known issues
 
+### Frontend - CORS issue when sending PUT request to server
+
+-   Currently, when trying to update an existing record in the DB, this will return a server error as there is some pre-flight request issue due to Cross-Origin Resource Sharing problems. This was fixed for the GET and DELETE method but for some reason the annotation in my Controller Layer seems not to affect the PUT method.
+
+### Frontend - React Form Hook - State and Validation
+
+-   The application as is has a couple of issues with the employee's data displayed in the `<EmployeeForm>` component.
+
+1. The Radio button defaultChecked value does not work as intended. I am able to pick up all the other values from the API call (GET/ :id), but currently the two options (`contractType` & `timeBase`) do not reflect the existing data from the DB.
+1. If the user was the click on `Save` straight away, the `Yup` schema would then return error message for each of the fields. It seems that it considers the forms unfilled unless the user has interacted with each field. I believe `React Form Hook` has a `dirtyField` property that I could leverage to fix that
+
 -   Remaining bugs, things that have been left unfixed
 -   Features that are buggy / flimsy
 

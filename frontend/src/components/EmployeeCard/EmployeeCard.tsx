@@ -18,7 +18,7 @@ const EmployeeCard = ({ employee, onDelete }: EmployeeCardProps) => {
     return (
         <>
             {/* <Separator /> */}
-            <div className={styles.EmployeeCard}>
+            <div data-testid="employeeCard" className={styles.EmployeeCard}>
                 <div>
                     <h3>
                         {employee.firstName} {employee.lastName}

@@ -131,3 +131,5 @@ export async function updateEmployee(employeeData: UpdateEmployeeResponse) {
         }
     }
 }
+
+export default getAllEmployees;
