@@ -4,7 +4,10 @@
     color: $primaryText;
     display: flex;
     justify-content: center;
-    // align-items: center;
 
     flex-direction: column;
+
+    @media only screen and (min-width: $mobile) and (max-width: $tablet) {
+        align-items: center;
+    }
 }

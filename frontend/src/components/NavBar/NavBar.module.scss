@@ -15,4 +15,12 @@
         justify-content: center;
         align-items: center;
     }
+
+    @media only screen and (min-width: $mobile) and (max-width: $tablet) {
+        flex-direction: column;
+
+        &__Link {
+            margin-bottom: 0px;
+        }
+    }
 }
