@@ -37,11 +37,12 @@ const EmployeeCard = ({ employee, onDelete }: EmployeeCardProps) => {
                         heightProp={"18px"}
                         backgroudColorProp={"grey"}
                     />
-                    <p
+                    <div
+                        data-testid="removeBtn"
                         onClick={handleOnDelete}
                         className={styles.EmployeeCard__Btns_Dlt}>
                         Remove
-                    </p>
+                    </div>
                 </div>
             </div>
             <Separator
