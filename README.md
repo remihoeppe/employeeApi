@@ -1,10 +1,5 @@
 # Employee Creator API
 
-## Demo & Snippets
-
--   Include hosted link
--   Include images of app if CLI or Client App
-
 ---
 
 ## Requirements / Purpose
@@ -22,6 +17,7 @@ The schema for the employee is left to the criteria of the candidate.
     -   React Form Hook / Yup
     -   Axios
     -   React Router DOM
+    -   Vitest / React Testing Library
 
 ## Backend
 
@@ -107,7 +103,7 @@ Finally, there is also an ultra simplistic styling component `<Separator>` that 
 -   Component(s): EmployeeForm\
     URL: /employees/newEmployee or /employees/:id
 
-    > Allows to either create a new employee or to visualise a current employee's detail and to save modification made to their profile.\
+    > Allows to either create a new employee or to visualize a current employee's detail and to save modification made to their profile.\
     > API Endpoint: /employee/:id -> POST or PUT => Save new employee or changes for current employee
 
     ![](./README-docs/EmployeeCard1.png)
@@ -128,6 +124,8 @@ Finally, there is also an ultra simplistic styling component `<Separator>` that 
 1. The Radio button defaultChecked value does not work as intended. I am able to pick up all the other values from the API call (GET/ :id), but currently the two options (`contractType` & `timeBase`) do not reflect the existing data from the DB.
 1. If the user was the click on `Save` straight away, the `Yup` schema would then return error message for each of the fields. It seems that it considers the forms unfilled unless the user has interacted with each field. I believe `React Form Hook` has a `dirtyField` property that I could leverage to fix that
 
+###
+
 -   Remaining bugs, things that have been left unfixed
 -   Features that are buggy / flimsy
 
@@ -135,16 +133,33 @@ Finally, there is also an ultra simplistic styling component `<Separator>` that 
 
 ## Future Goals
 
-### Implementation of an Authentication Strategy
+### Frontend - Implementation of an Authentication Strategy
 
--   Restricting Adding new employees, deleting current employees to admins.
--   Defining another type of super admin that can visualized archived employees.
+For the time being there is no login strategy in place to access the application, meaning that everyone can read and manipulate the date. In a real world deployed application, our data should be protected, and an authentication procedure should be in place to avoid missuses of our employees personal information as well as safeguarding company's critical data. A couple of things that could be set up would be:
 
-### Postal Address API auto-fill
+-   Restricting Adding new employees, deleting current employees to admins (HR employees, managers).
+-   Defining another type of super admin that can visualized archived employees (Payroll employees).
 
-### Better Date Picker / Formatter
+### Frontend - Postal Address API auto-fill
 
-### Add endDate when archiving an employee
+At the moment the field for the `Residential Address` has no autofill functionality. The wireframe seems to suggest that it should as it show `"Start typing to search"`.
+A next step for this project would be to include a third-party API to help with this feature.
+`MapBox` seems to be offering a `<AddressAutofill>` component that I could possibly use to do that.
+
+[Address Autofill Component API Reference](https://docs.mapbox.com/mapbox-search-js/api/react/autofill/#addressautofillprops#accesstoken)
+
+### Frontend - Better Date Picker / Formatter
+
+The current form takes in the date from the user as a string in the form (YYYY-MM-DD). This could be improved using a DatePicker component.
+During the first development stage, I unsuccessfully tried to use the react-datepicker package.
+While the component itself rendered to the page, its styling was very off and as a user, it was impossible to pick a date. After timeboxing this I decided to go with the simpler solution and will circle back to that.
+
+A possible issue that we foresee when using this component would be validation as at the moment every field is checked against our YUP validator schema. This would certainly need to be updated, depending on the output of the DatePicker component.
+
+### Backend - Add endDate when archiving an employee
+
+I think that the Service method for the Delete method (which archives an employee by modifying the `deleted` field on the entry to be `true`) should also automatically generate an endDate for that employee.
+Given that our DB contains employees on Contract, it is possible that some employees will be added with an endDate thus we can not enforce the same logic the other way around (i.e. as soon as endDate is hit, employee is archived) as a contract might be extended.
 
 ###
 
@@ -193,14 +208,28 @@ Finally, there is also an ultra simplistic styling component `<Separator>` that 
 
 ## What did you struggle with?
 
--   What? Why? How?
-
 ### CORS Issues
 
-### React Hook Forms
+I came across these issues while setting up the frontend of my application. To check whether I was able to retrieve data from my locally run server, I conducted a simple test. Unfortunately, the Axis request failed. After verifying the functionality of my server in Postman, I inspected the DevTools Network section and discovered that my requests to the server were being blocked due to CORS issues.
 
-> Default checked values for Radio Buttons
-> Prefilled Forms giving validation error
+To elaborate further, `Cross-Origin Resource Sharing` (CORS) is a security feature implemented in web browsers that restricts the sharing of resources across different domains. When a web page from one domain tries to access resources from another domain, the browser will block the request unless the server hosting the resource explicitly allows it.
+In my case, the requests I was sending to the server were being blocked by the browser due to CORS issues. This was because my frontend code was running on a different domain than my server. To resolve the issue, I had to configure my server to explicitly allow requests from my frontend domain using `@CrossOrigin` annotation in my Controller Layer.
+After setting up the appropriate CORS configuration on my server, I was able to successfully retrieve data from the server in my frontend. This experience taught me the importance of understanding CORS and how to properly configure it in a web application to avoid similar issues in the future.
+
+Remaining issue:
+
+-   it seems that further configuration is need to allow PUT method sent form my frontend
+
+### React Form Hook
+
+This was my first time using this library to create a form, and it took me a while to become comfortable with it. Since much of the state logic is abstracted under the `useForm` hook, I wanted to fully grasp the functionality of each method accessible through it.
+
+However, I can now appreciate the benefits of this library. Setting up validation and using uncontrolled components saves on re-renders for each character entered into an input field, resulting in improved performance. Although the default validation could have been used, I decided to take an extra step and use the `Yup` library instead. This offered greater flexibility and more options for validation with a wider range of methods to ensure that all fields were filled correctly. It also allowed me to return specific messages in case of errors made by the user. A significant point for me was that the schema could be abstracted away from the form, making the TSX code much easier to read.
+
+As mentioned above, a couple of issues that I still want to fix are:
+
+-   Default checked values for Radio Buttons when getting employee info from API
+-   Prefilled Forms giving validation error
 
 ### @Where Clause & Failing Backend Tests
 
@@ -214,18 +243,3 @@ Eventually I traced the error all the way back to the fact that I was using a `@
 I removed that and implement this filtering functionality inside my Service Layer, only returning Employees that have the `DELETED` field set to `FALSE`
 
 ---
-
-## Licensing Details
-
--   What type of license are you releasing this under?
-
----
-
-## Further details, related projects, reimplementations
-
--   Is this project a reimplementation for something you've done in the past? if so explain it and link it here.
--   If it's an API, is there a client app that works with this project? link it
-
-```
-
-```
