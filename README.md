@@ -126,9 +126,6 @@ Finally, there is also an ultra simplistic styling component `<Separator>` that 
 
 ###
 
--   Remaining bugs, things that have been left unfixed
--   Features that are buggy / flimsy
-
 ---
 
 ## Future Goals
@@ -166,6 +163,14 @@ Given that our DB contains employees on Contract, it is possible that some emplo
 ---
 
 ## Changelog
+
+### 21/02/2023 - Testing
+
+-   FEATURE: Adds Frontend Component Unit tests. Adds Back end Service Layer Unit test. Changed Repository Layer find By email SQL query.
+-   FEATURE: Finished EmployeeCardTest
+-   FEATURE: Add VITEST/RTL Test setup + Base for EmployeeCardTest
+-   FEATURE: Adds Unit Testing for EmployeeService
+-   FEATURE: Updates README
 
 ### 20/02/2023 - Frontend React-TypeScript Vite, Component Creation, Axios and Form setup
 
