@@ -1,5 +1,6 @@
 package com.employeeCreator.app.employee;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -10,13 +11,16 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @DataJpaTest
 class EmployeeRepositoryTest {
-
     @Autowired
     private EmployeeRepository underTest;
 
-    @Test
-    void itShouldFindEmployeeByEmail() {
+    @AfterEach
+    void tearDown() {
+        underTest.deleteAll();
+    }
 
+    @Test
+    void itShouldFindEmployeeByEmailIfItExist() {
         //Given
         String email = "NewEmployee@bill.com";
         Employee employee = new Employee(
@@ -32,13 +36,20 @@ class EmployeeRepositoryTest {
                 "Full Time",
                 "38"
         );
-
         underTest.save(employee);
-
         //When
         Optional<Employee> foundEmployee = underTest.findEmployeeByEmail(email);
-
         //Then
         assertThat(foundEmployee.isPresent());
+    }
+
+    @Test
+    void itShouldNotFindEmployeeByEmailIfItDoesNotExist() {
+        //Given
+        String email = "NewEmployee@bill.com";
+        //When
+        Optional<Employee> foundEmployee = underTest.findEmployeeByEmail(email);
+        //Then
+        assertThat(foundEmployee.isEmpty());
     }
 }

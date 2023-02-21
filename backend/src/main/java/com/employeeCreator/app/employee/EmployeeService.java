@@ -16,8 +16,11 @@ public class EmployeeService {
         private EmployeeMapper employeeMapper;
 
         @Autowired
-        public EmployeeService(EmployeeRepository employeeRepository) {
+        public EmployeeService(EmployeeRepository employeeRepository,
+                               EmployeeMapper employeeMapper) {
             this.employeeRepository = employeeRepository;
+            this.employeeMapper = employeeMapper;
+
         }
 
         public Employee getEmployeeById(Long employeeId) {
@@ -29,7 +32,9 @@ public class EmployeeService {
         }
 
     	public List<Employee> getEmployees() {
-		    return employeeRepository.findAll().stream().filter(employee -> employee.getDeleted().equals(false)).collect(Collectors.toList());
+		    return employeeRepository.findAll().stream()
+                    .filter(employee -> employee.getDeleted().equals(false))
+                    .collect(Collectors.toList());
 	    }
 
 	    public Employee addNewEmployee(EmployeeDTO employeeData) {

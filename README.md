@@ -9,9 +9,9 @@
 
 ## Requirements / Purpose
 
-    We need a web application to create, list, modify and delete employees.
-    The application should consist of a Spring RESTful API and a React Typescript frontend.
-    The schema for the employee is left to the criteria of the candidate.
+We need a web application to create, list, modify and delete employees.
+The application should consist of a Spring RESTful API and a React Typescript frontend.
+The schema for the employee is left to the criteria of the candidate.
 
 ## Stacks
 
