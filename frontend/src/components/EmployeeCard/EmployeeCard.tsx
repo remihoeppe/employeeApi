@@ -23,8 +23,8 @@ const EmployeeCard = ({ employee, onDelete }: EmployeeCardProps) => {
                     <h3>
                         {employee.firstName} {employee.lastName}
                     </h3>
-                    <p>{`${employee.contractType} - ${tenure} years`}</p>
-                    <p>{employee.email}</p>
+                    <p data-testid="contract">{`${employee.contractType} - ${tenure} years`}</p>
+                    <p data-testid="email">{employee.email}</p>
                 </div>
                 <div className={styles.EmployeeCard__Btns}>
                     <NavLink

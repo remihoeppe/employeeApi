@@ -3,6 +3,7 @@ import { vi } from "vitest";
 import userEvent from "@testing-library/user-event";
 import EmployeeCard from "./EmployeeCard";
 import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
+import { getTenure } from "src/validation/helper";
 
 const mockProps: any = {
     employee: {
@@ -20,23 +21,17 @@ const mockProps: any = {
         weeklyHours: "30",
         deleted: false,
     },
-    onDelete: vi.fn((e: any) => e.target.value),
+    onDelete: vi.fn((e: any) => "onDelete has been called"),
 };
 
 describe("Testing EmployeeCard", () => {
     beforeEach(async () => {
         await render(
             <BrowserRouter>
-                <Routes>
-                    <Route
-                        element={
-                            <EmployeeCard
-                                employee={mockProps.employee}
-                                onDelete={mockProps.onDelete}
-                            />
-                        }
-                    />
-                </Routes>
+                <EmployeeCard
+                    employee={mockProps.employee}
+                    onDelete={mockProps.onDelete}
+                />
             </BrowserRouter>,
         );
     });
@@ -48,6 +43,27 @@ describe("Testing EmployeeCard", () => {
     it("Should call onDelete function when user clicks on Remove", async () => {
         const user = userEvent.setup();
         const removeBtn = screen.getByTestId("removeBtn");
-        console.log(removeBtn);
+        await user.click(removeBtn);
+        expect(mockProps.onDelete).toHaveBeenCalled();
+    });
+
+    it("display the right information for the employee", async () => {
+        const tenure = getTenure(
+            mockProps.employee.startDate,
+            mockProps.employee.endDate,
+        );
+
+        const fullName = screen.getByRole("heading", { level: 3 });
+        expect(fullName).toHaveTextContent(
+            `${mockProps.employee.firstName} ${mockProps.employee.lastName}`,
+        );
+
+        const contract = screen.getByTestId("contract");
+        expect(contract).toHaveTextContent(
+            `${mockProps.employee.contractType} - ${tenure} years`,
+        );
+
+        const email = screen.getByTestId("email");
+        expect(email).toHaveTextContent(mockProps.employee.email);
     });
 });
