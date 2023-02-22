@@ -11,11 +11,6 @@ import {
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 
-interface EmployeeFormProps {
-    employeeData: Employee;
-    onFormSubmit: any;
-}
-
 const defaultData = {
     firstName: "",
     middleName: "",
@@ -30,7 +25,30 @@ const defaultData = {
     weeklyHours: "",
 };
 
-const EmployeeForm = ({ employeeData, onFormSubmit }: EmployeeFormProps) => {
+const EmployeeForm = () => {
+    const [employeeData, setEmployeeData] = useState(defaultData);
+    const [isOngoing, setIsOnGoing] = useState(
+        employeeData.endDate === "" ? false : true,
+    );
+
+    const { id } = useParams();
+    const location = useLocation();
+
+    const getEmployeeDefaultData = async (id: string | undefined) => {
+        const data = id ? await getEmployeeById(id) : defaultData;
+        console.log(data);
+        setEmployeeData(data);
+    };
+
+    useEffect(() => {
+        getEmployeeDefaultData(id);
+        console.log("Location:", location);
+    }, []);
+
+    useEffect(() => {
+        console.log("EmployeData:", employeeData);
+    }, [employeeData]);
+
     const {
         register,
         handleSubmit,
@@ -38,22 +56,26 @@ const EmployeeForm = ({ employeeData, onFormSubmit }: EmployeeFormProps) => {
         formState: { errors },
     } = useForm<Employee>({
         resolver: yupResolver(employeeFormSchema),
-        defaultValues: employeeData,
     });
 
     useEffect(() => {
-        reset(employeeData);
-    }, [employeeData]);
-
-    const [isOnGoing, setIsOnGoing] = useState(false);
+        if (id) {
+            console.log("ID is:, ", id);
+        }
+    });
 
     const onSubmit: SubmitHandler<Employee> = (data) => {
-        console.log(data);
-        onFormSubmit(data);
+        // if (location.pathname === "/employees/newForm")
+        createEmployee(data);
+        // updateEmployee(data);
     };
 
     const handleOnGoingClick = () => {
-        setIsOnGoing(!isOnGoing);
+        setIsOnGoing(!isOngoing);
+    };
+
+    const defaultChecked = (employee: any, prop: any, condition: string) => {
+        return (employee[prop] = condition ? condition : false);
     };
 
     return (
@@ -74,6 +96,7 @@ const EmployeeForm = ({ employeeData, onFormSubmit }: EmployeeFormProps) => {
                         </label>
                         <input
                             id="firstName"
+                            defaultValue={employeeData.firstName}
                             type="text"
                             {...register("firstName")}
                         />
@@ -91,6 +114,7 @@ const EmployeeForm = ({ employeeData, onFormSubmit }: EmployeeFormProps) => {
                         </label>
                         <input
                             id="middleName"
+                            defaultValue={employeeData.middleName}
                             type="text"
                             {...register("middleName")}
                         />
@@ -108,6 +132,7 @@ const EmployeeForm = ({ employeeData, onFormSubmit }: EmployeeFormProps) => {
                         </label>
                         <input
                             id="lastName"
+                            defaultValue={employeeData.lastName}
                             type="text"
                             {...register("lastName")}
                         />
@@ -129,6 +154,7 @@ const EmployeeForm = ({ employeeData, onFormSubmit }: EmployeeFormProps) => {
                         </p>
                         <input
                             id="mobileNumber"
+                            defaultValue={employeeData.mobileNumber}
                             type="text"
                             {...register("mobileNumber")}
                         />
@@ -145,7 +171,12 @@ const EmployeeForm = ({ employeeData, onFormSubmit }: EmployeeFormProps) => {
                             Email Address
                         </label>
 
-                        <input id="email" type="text" {...register("email")} />
+                        <input
+                            id="email"
+                            type="text"
+                            defaultValue={employeeData.email}
+                            {...register("email")}
+                        />
                         <div className={styles.EmployeeForm__InvalidFeedback}>
                             {errors.email?.message}
                         </div>
@@ -161,6 +192,7 @@ const EmployeeForm = ({ employeeData, onFormSubmit }: EmployeeFormProps) => {
                         <input
                             id="address"
                             type="text"
+                            defaultValue={employeeData.address}
                             placeholder="123 Example St, Sydney NSW 2000"
                             {...register("address")}
                         />
@@ -178,6 +210,10 @@ const EmployeeForm = ({ employeeData, onFormSubmit }: EmployeeFormProps) => {
                                 <input
                                     id="permanent"
                                     type="radio"
+                                    defaultChecked={
+                                        employeeData.contractType ===
+                                        "Permanent"
+                                    }
                                     value="Permanent"
                                     {...register("contractType")}
                                 />
@@ -193,6 +229,9 @@ const EmployeeForm = ({ employeeData, onFormSubmit }: EmployeeFormProps) => {
                                 <input
                                     id="contract"
                                     type="radio"
+                                    defaultChecked={
+                                        employeeData.contractType === "Contract"
+                                    }
                                     value="Contract"
                                     {...register("contractType")}
                                 />
@@ -224,6 +263,7 @@ const EmployeeForm = ({ employeeData, onFormSubmit }: EmployeeFormProps) => {
                         <input
                             id="startDate"
                             type="text"
+                            defaultValue={employeeData.startDate}
                             placeholder="YYYY-MM-DD"
                             {...register("startDate")}
                         />
@@ -245,8 +285,9 @@ const EmployeeForm = ({ employeeData, onFormSubmit }: EmployeeFormProps) => {
                             id="endDate"
                             type="text"
                             {...register("endDate")}
+                            defaultValue={employeeData.endDate}
                             placeholder="YYYY-MM-DD"
-                            disabled={isOnGoing ? true : false}
+                            disabled={isOngoing ? true : false}
                         />
                         <div className={styles.EmployeeForm__InvalidFeedback}>
                             {errors.endDate?.message}
@@ -259,6 +300,7 @@ const EmployeeForm = ({ employeeData, onFormSubmit }: EmployeeFormProps) => {
                                 <input
                                     id="onGoing"
                                     type="checkbox"
+                                    defaultChecked={isOngoing}
                                     onChange={handleOnGoingClick}
                                 />
                                 <label
@@ -280,6 +322,9 @@ const EmployeeForm = ({ employeeData, onFormSubmit }: EmployeeFormProps) => {
                                 <input
                                     id="fullTime"
                                     type="radio"
+                                    defaultChecked={
+                                        employeeData.timeBase === "Full time"
+                                    }
                                     value="Full time"
                                     {...register("timeBase")}
                                 />
@@ -295,6 +340,9 @@ const EmployeeForm = ({ employeeData, onFormSubmit }: EmployeeFormProps) => {
                                 <input
                                     id="partTime"
                                     type="radio"
+                                    defaultChecked={
+                                        employeeData.timeBase === "Part time"
+                                    }
                                     value="Part time"
                                     {...register("timeBase")}
                                 />
@@ -325,6 +373,7 @@ const EmployeeForm = ({ employeeData, onFormSubmit }: EmployeeFormProps) => {
                         </label>
                         <input
                             id="weeklyHours"
+                            defaultValue={employeeData.weeklyHours}
                             className={styles.EmployeeForm__Input_HoursInput}
                             type="text"
                             {...register("weeklyHours")}

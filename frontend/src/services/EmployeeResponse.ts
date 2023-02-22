@@ -1,16 +1,16 @@
 export interface Employee {
-    id: String;
-    firstName: String;
-    middleName: String;
-    lastName: String;
-    mobileNumber: String;
-    email: String;
-    address: String;
-    startDate: Date;
-    endDate: Date;
-    contractType: String;
-    timeBase: String;
-    weeklyHours: String;
+    id: string;
+    firstName: string;
+    middleName: string;
+    lastName: string;
+    mobileNumber: string;
+    email: string;
+    address: string;
+    startDate: string;
+    endDate: string;
+    contractType: string;
+    timeBase: string;
+    weeklyHours: string;
     deleted: Boolean;
 }
 
@@ -19,32 +19,32 @@ export type GetEmployeesResponse = {
 };
 
 export type CreateEmployeeResponse = {
-    firstName: String;
-    middleName: String;
-    lastName: String;
-    mobileNumber: String;
-    email: String;
-    address: String;
-    startDate: Date;
-    endDate: Date;
-    contractType: String;
-    timeBase: String;
-    weeklyHours: String;
+    firstName: string;
+    middleName: string;
+    lastName: string;
+    mobileNumber: string;
+    email: string;
+    address: string;
+    startDate: string;
+    endDate: string;
+    contractType: string;
+    timeBase: string;
+    weeklyHours: string;
 };
 
 export type UpdateEmployeeResponse = {
     id: string;
-    firstName: String;
-    middleName: String;
-    lastName: String;
-    mobileNumber: String;
-    email: String;
-    address: String;
-    startDate: Date;
-    endDate: Date;
-    contractType: String;
-    timeBase: String;
-    weeklyHours: String;
+    firstName: string;
+    middleName: string;
+    lastName: string;
+    mobileNumber: string;
+    email: string;
+    address: string;
+    startDate: string;
+    endDate: string;
+    contractType: string;
+    timeBase: string;
+    weeklyHours: string;
     deleted: Boolean;
 };
 

@@ -247,4 +247,6 @@ Eventually I traced the error all the way back to the fact that I was using a `@
 
 I removed that and implement this filtering functionality inside my Service Layer, only returning Employees that have the `DELETED` field set to `FALSE`
 
+### Using Redux
+
 ---

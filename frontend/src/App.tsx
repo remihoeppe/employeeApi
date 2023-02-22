@@ -1,9 +1,11 @@
 import styles from "./App.module.scss";
-import EmployeeForm from "./components/EmployeeForm/EmployeeForm";
+import EmployeeForm from "./components/EmployeeForm/OldEmployeeForm";
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 
 import EmployeesList from "./components/EmployeesList/EmployeesList";
 import NavBar from "./components/NavBar/NavBar";
+import EmployeeCreate from "./components/EmployeeCreate/EmployeeCreate";
+import EmployeeUpdate from "./components/EmployeeUpdate/EmployeeUpdate";
 
 const App = () => {
     return (
@@ -15,9 +17,9 @@ const App = () => {
                     <Route path="/employees" element={<EmployeesList />} />
                     <Route
                         path="/employees/newEmployee"
-                        element={<EmployeeForm />}
+                        element={<EmployeeCreate />}
                     />
-                    <Route path="/employees/:id" element={<EmployeeForm />} />
+                    <Route path="/employees/:id" element={<EmployeeUpdate />} />
                 </Routes>
             </BrowserRouter>
         </div>

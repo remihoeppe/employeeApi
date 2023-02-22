@@ -12,7 +12,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 //    @Query("SELECT e FROM Employee e WHERE e.email = ?1")
 //    Optional<Employee> findEmployeeByEmail(String email);
 
-    @Query(value = "SELECT CASE WHEN COUNT(s) > 0 THEN " +
+    @Query(value = "SELECT CASE WHEN COUNT(e) > 0 THEN " +
             "TRUE ELSE FALSE END " +
             "FROM Employee e " +
             "WHERE e.email = ?1", nativeQuery = true)

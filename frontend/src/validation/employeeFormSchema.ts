@@ -34,18 +34,18 @@ export const employeeFormSchema = Yup.object().shape({
         )
         .required("This field is required"),
     endDate: Yup.string()
-        .test(
-            "endDate",
-            "End Date must either be empty or be entered as YYYY-MM-DD,",
-            (endDate) => {
-                if (endDate === "") {
-                    return true;
-                }
-                endDate?.match(
-                    /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/,
-                );
-            },
-        )
+        // .test(
+        //     "endDate",
+        //     "End Date must either be empty or be entered as YYYY-MM-DD,",
+        //     (endDate) => {
+        //         if (endDate === "") {
+        //             return true;
+        //         }
+        //         endDate?.match(
+        //             /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/,
+        //         );
+        //     },
+        // )
         .notRequired(),
     contractType: Yup.string().test(
         "contractType",

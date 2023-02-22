@@ -85,7 +85,7 @@ export async function getAllEmployees() {
 export async function createEmployee(employeeData: CreateEmployeeResponse) {
     try {
         const { data, status } = await http.post<CreateEmployeeResponse>(
-            "/employee/",
+            "/employee",
             employeeData,
         );
         console.log(`Request Successful, Status: ${status}`);
