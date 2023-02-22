@@ -179,6 +179,19 @@ I encountered some issues defining the running Context for this test suit config
 
 ## Changelog
 
+### 22/02/2023 - Updating Frontend to fix CORS issues and changes Component tree architecture
+
+-   FEATURE: Corrects tests React components.
+-   FIX: updates EmployeeCreate and EmployeeUpdate to take correct employee data. Updates API functions to allow for Cross-origin requests. Updates backend API URL to simply
+-   FEATURE: Add Unit tests for new React components
+-   MINOR CHANGE: updates file naming conventions. Changed unique key prop in EmployeeCard to be employee.id
+    Delete .DS_Store
+-   FIX: REMOVES node-module form parent directory
+-   FEATURE: Update Components tree architecture to have EmployeeCreate + EmployeeUpdate Containers to handle state. Taking most of the logic out of EmployeeForm which only handles data display and form validation rather than API calls and useParams query
+-   FEATURE: Updates README
+-   FEATURE: Updates README
+-   FEATURE: Add media queries - responsive on mobile. Tested for tablet size too.
+
 ### 21/02/2023 - Testing
 
 -   FEATURE: Adds Frontend Component Unit tests. Adds Back end Service Layer Unit test. Changed Repository Layer find By email SQL query.
