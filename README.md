@@ -113,22 +113,21 @@ Finally, there is also an ultra simplistic styling component `<Separator>` that 
 
 ## Known issues
 
-### Frontend - CORS issue when sending PUT request to server
+### Frontend - Unit Testing (API Call Mocking)
 
--   Currently, when trying to update an existing record in the DB, this will return a server error as there is some pre-flight request issue due to Cross-Origin Resource Sharing problems. This was fixed for the GET and DELETE method but for some reason the annotation in my Controller Layer seems not to affect the PUT method.
+Some Unit Test for the API call behavior are not currently passing and will need more time.
 
-### Frontend - React Form Hook - State and Validation
+### Frontend - Minor state issue on Employee Remove
 
--   The application as is has a couple of issues with the employee's data displayed in the `<EmployeeForm>` component.
-
-1. The Radio button defaultChecked value does not work as intended. I am able to pick up all the other values from the API call (GET/ :id), but currently the two options (`contractType` & `timeBase`) do not reflect the existing data from the DB.
-1. If the user was the click on `Save` straight away, the `Yup` schema would then return error message for each of the fields. It seems that it considers the forms unfilled unless the user has interacted with each field. I believe `React Form Hook` has a `dirtyField` property that I could leverage to fix that
-
-###
+It looks like the first click on the `Remove` button does not trigger a re-render of the page. Though any subsequent `REMOVE` seems to be working fine.
 
 ---
 
 ## Future Goals
+
+### Frontend - Adding Axios Mock Tests
+
+An extra step for my tests on the front end side would be to add mock testing for all of our Axios calls to guarantee that they are working as we intend them too and that they return the right data or errors.
 
 ### Frontend - Implementation of an Authentication Strategy
 
@@ -158,7 +157,10 @@ A possible issue that we foresee when using this component would be validation a
 I think that the Service method for the Delete method (which archives an employee by modifying the `deleted` field on the entry to be `true`) should also automatically generate an endDate for that employee.
 Given that our DB contains employees on Contract, it is possible that some employees will be added with an endDate thus we can not enforce the same logic the other way around (i.e. as soon as endDate is hit, employee is archived) as a contract might be extended.
 
-###
+### Backend - Adding EmployeeRepository Integration Testing
+
+An attempt was made to add an extra layer of testing to make sure that our backend server was running as it should.
+I encountered some issues defining the running Context for this test suit configuration. After Googling and trying different sets of annotations as well as different types of configuration files, I ran out of the time I had allocated for these issues. I decided to focus on the CORS issues instead as this was preventing me from achieving the core MVP.
 
 ---
 

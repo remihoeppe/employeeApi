@@ -21,7 +21,7 @@ class EmployeeRepositoryTest {
 
     @Test
     void itShouldFindEmployeeByEmailIfItExist() {
-        //Given
+        // Given
         String email = "NewEmployee@bill.com";
         Employee employee = new Employee(
                 "John",
@@ -30,26 +30,25 @@ class EmployeeRepositoryTest {
                 "6666666",
                 email,
                 "Cali",
-                LocalDate.of(2000,03,17),
-                LocalDate.of(2020,06,30),
+                LocalDate.of(2000, 03, 17),
+                LocalDate.of(2020, 06, 30),
                 "Permanent",
                 "Full Time",
-                "38"
-        );
+                "38");
         underTest.save(employee);
-        //When
+        // When
         boolean emailExist = underTest.existsByEmail(email);
-        //Then
+        // Then
         assertThat(emailExist).isTrue();
     }
 
     @Test
     void itShouldNotFindEmployeeByEmailIfItDoesNotExist() {
-        //Given
+        // Given
         String email = "NewEmployee@bill.com";
-        //When
+        // When
         boolean emailExist = underTest.existsByEmail(email);
-        //Then
+        // Then
         assertThat(emailExist);
         assertThat(emailExist).isFalse();
     }

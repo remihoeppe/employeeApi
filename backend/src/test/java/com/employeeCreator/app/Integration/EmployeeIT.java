@@ -16,8 +16,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-//@SpringBootTest
-//@ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/application-context.xml")
+// @SpringBootTest
+// @ContextConfiguration(locations =
+// "file:src/main/webapp/WEB-INF/application-context.xml")
 @AutoConfigureMockMvc
 
 public class EmployeeIT {
@@ -33,7 +34,6 @@ public class EmployeeIT {
 
     private final Faker faker = new Faker();
 
-
     @Test
     public void testGetAllEmployees() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/employees")).andExpect(status().isOk());
@@ -42,7 +42,7 @@ public class EmployeeIT {
     @Test
     @Disabled
     void canRegisterNewEmployee() throws Exception {
-        //Given
+        // Given
 
         // When
 

@@ -14,7 +14,7 @@ import java.util.NoSuchElementException;
 @RestController
 @RequestMapping("/employees")
 // Default Vite Server Port TODO -> Will need to be changed once Frontend has
-//  been deployed to AWS
+// been deployed to AWS
 @CrossOrigin("http://127.0.0.1:5173")
 public class EmployeeController {
     private final EmployeeService employeeService;
@@ -66,26 +66,23 @@ public class EmployeeController {
         }
     }
 
-
     @PutMapping("/{employeeId}")
     @CrossOrigin
     // DO NOT THROW 404
     public ResponseEntity updateEmployee(
-            @PathVariable Long employeeId, @RequestBody EmployeeDTO employeeData)
-    {
+            @PathVariable Long employeeId, @RequestBody EmployeeDTO employeeData) {
         try {
             Employee employee = this.employeeService.updateEmployeeDetails(employeeId, employeeData);
             logger.info(String.format("Employee with ID [%s] has been saved (created if not already in DB)",
                     employee.getId()));
             return ResponseEntity.status(HttpStatus.OK).body(employee);
-        } catch (IllegalStateException error){
+        } catch (IllegalStateException error) {
             String errorMessage = String.format("An employee with the email [%s], already exists",
                     employeeData.getEmail());
             logger.error(errorMessage);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
         }
     }
-
 
     @DeleteMapping(path = "{employeeId}")
     @CrossOrigin

@@ -7,7 +7,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-
 @Mapper(componentModel = "spring")
 public interface EmployeeMapper {
 
@@ -21,10 +20,10 @@ public interface EmployeeMapper {
     @Mapping(source = "contractType", target = "contractType")
     @Mapping(source = "timeBase", target = "timeBase")
     @Mapping(source = "weeklyHours", target = "weeklyHours")
-//    @Mapping(source = "", target = "")
-
+    // @Mapping(source = "", target = "")
 
     Employee employeeDtoToEmployee(EmployeeDTO employeeData);
+
     void updateEmployeeFromDto(EmployeeDTO updatedEmployeeData, @MappingTarget Employee employee);
 
 }

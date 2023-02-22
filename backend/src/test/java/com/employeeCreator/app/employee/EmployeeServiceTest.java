@@ -17,9 +17,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
-
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {EmployeeMapperImpl.class})
+@SpringBootTest(classes = { EmployeeMapperImpl.class })
 @ExtendWith(MockitoExtension.class)
 class EmployeeServiceTest {
     @Mock
@@ -27,20 +26,20 @@ class EmployeeServiceTest {
     private EmployeeService underTest;
     @Mock
     private EmployeeMapper employeeMapper = Mappers.getMapper(EmployeeMapper.class);
+
     @BeforeEach
     void setUp() {
         underTest = new EmployeeService(employeeRepository, employeeMapper);
     }
 
-
     @Test
     @Disabled
     void getEmployeeById() {
-        //Given
+        // Given
         long id = 1;
-        //When
+        // When
         underTest.getEmployeeById(id);
-        //Then
+        // Then
         verify(employeeRepository).findById(id);
     }
 
@@ -54,19 +53,16 @@ class EmployeeServiceTest {
                 "6666666",
                 "john@bill.com",
                 "Cali",
-                LocalDate.of(2000,03,17),
-                LocalDate.of(2020,06,30),
+                LocalDate.of(2000, 03, 17),
+                LocalDate.of(2020, 06, 30),
                 "Permanent",
                 "Full Time",
-                "38"
-        );
-        Employee newEmployee =
-              employeeMapper.employeeDtoToEmployee(employeeData);
-        //When
+                "38");
+        Employee newEmployee = employeeMapper.employeeDtoToEmployee(employeeData);
+        // When
         underTest.addNewEmployee(employeeData);
-        //Then (save an Employee)
-        ArgumentCaptor<Employee> employeeArgumentCaptor =
-                ArgumentCaptor.forClass(Employee.class);
+        // Then (save an Employee)
+        ArgumentCaptor<Employee> employeeArgumentCaptor = ArgumentCaptor.forClass(Employee.class);
         verify(employeeRepository).save(employeeArgumentCaptor.capture());
         Employee capturedEmployee = employeeArgumentCaptor.getValue();
         assertThat(capturedEmployee).isEqualTo(newEmployee);
@@ -78,18 +74,17 @@ class EmployeeServiceTest {
         EmployeeDTO newEmployee = new EmployeeDTO(
                 "John",
                 "Bill",
-                "H.",
-                "6666666",
+                "Hope",
+                "0411112222",
                 "john@bill.com",
                 "Cali",
-                LocalDate.of(2000,03,17),
-                LocalDate.of(2020,06,30),
+                LocalDate.of(2000, 03, 17),
+                LocalDate.of(2020, 06, 30),
                 "Permanent",
                 "Full Time",
-                "38"
-        );
+                "38");
         given(employeeRepository.existsByEmail(anyString())).willReturn(true);
-        //When - Then
+        // When - Then
         assertThatThrownBy(() -> underTest.addNewEmployee(newEmployee))
                 .isInstanceOf(IllegalStateException.class)
                 .hasMessageContaining("This email is already taken");
@@ -99,31 +94,28 @@ class EmployeeServiceTest {
     @Test
     @Disabled
     void updateEmployeeDetails() {
-        //Given
+        // Given
         long id = 1;
         EmployeeDTO employeeData = new EmployeeDTO(
-            "John",
-                    "Mac",
-                    "H.",
-                    "6666666",
-                    "john@bill.com",
-                    "NSW",
-                    LocalDate.of(2000,03,17),
-                    LocalDate.of(2020,06,30),
-                    "Permanent",
-                    "Full Time",
-                    "38"
-        );
-        //When
+                "John",
+                "Mac",
+                "Hope",
+                "0411112222",
+                "john@bill.com",
+                "NSW",
+                LocalDate.of(2000, 03, 17),
+                LocalDate.of(2020, 06, 30),
+                "Permanent",
+                "Full Time",
+                "38");
+        // When
         given(employeeRepository.existsById(id)).willReturn(true);
-        //Then
-        //When
+        // Then
+        // When
         underTest.addNewEmployee(employeeData);
-        Employee newEmployee =
-                employeeMapper.employeeDtoToEmployee(employeeData);
-        //Then (save an Employee)
-        ArgumentCaptor<Employee> employeeArgumentCaptor =
-                ArgumentCaptor.forClass(Employee.class);
+        Employee newEmployee = employeeMapper.employeeDtoToEmployee(employeeData);
+        // Then (save an Employee)
+        ArgumentCaptor<Employee> employeeArgumentCaptor = ArgumentCaptor.forClass(Employee.class);
         assertThat(verify(employeeRepository).findById(id)).isEqualTo(2);
         verify(employeeRepository).save(employeeArgumentCaptor.capture());
         Employee capturedEmployee = employeeArgumentCaptor.getValue();
@@ -132,24 +124,24 @@ class EmployeeServiceTest {
 
     @Test
     void canDeleteEmployee() {
-        //Given
+        // Given
         long id = 1;
         given(employeeRepository.existsById(id)).willReturn(true);
-        //When
+        // When
         underTest.deleteEmployee(id);
-        //Then
+        // Then
         verify(employeeRepository).deleteById(id);
     }
 
     @Test
     void deleteWillThrowIfEmployeeIdDoesNotExist() {
-        //Given
+        // Given
         long id = 99;
         given(employeeRepository.existsById(id)).willReturn(false);
-        //When - Then
+        // When - Then
         assertThatThrownBy(() -> underTest.deleteEmployee(id))
                 .isInstanceOf(IllegalStateException.class)
-                .hasMessageContaining( "Employee with id " + id + " does not " +
+                .hasMessageContaining("Employee with id " + id + " does not " +
                         "exist");
         verify(employeeRepository, never()).deleteById(any());
     }

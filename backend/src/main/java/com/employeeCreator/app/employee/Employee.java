@@ -22,7 +22,7 @@ import org.hibernate.annotations.Where;
 @Getter
 @Setter
 @SQLDelete(sql = "UPDATE employee SET deleted = true WHERE id=?")
-//@Where(clause = "deleted=false")
+// @Where(clause = "deleted=false")
 // TODO -> Replace with service layer method filtering
 public class Employee {
     @Id
@@ -45,7 +45,8 @@ public class Employee {
     @Transient
     private Integer timeWithCompany;
 
-    public Employee() {};
+    public Employee() {
+    };
 
     public Employee(
             String firstName,
@@ -83,7 +84,6 @@ public class Employee {
                 ", email='" + email + '\'' +
                 '}';
     }
-
 
     // Allow to get a Tenure duration based on endDate if exists or on going time
     // with the company if employee is still under contract
