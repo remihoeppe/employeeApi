@@ -6,7 +6,7 @@ import {
     GetEmployeesResponse,
     ArchiveEmployeResponse,
     UpdateEmployeeResponse,
-} from "./EmployeeResponse";
+} from "./employee-response";
 
 export async function getEmployeeById(employeeId: any) {
     try {

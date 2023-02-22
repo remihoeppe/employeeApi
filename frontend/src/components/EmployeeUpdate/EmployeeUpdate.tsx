@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getEmployeeById, updateEmployee } from "./../../services/apiServices";
+import { getEmployeeById, updateEmployee } from "../../services/api-services";
 import {
     Employee,
     UpdateEmployeeResponse,
-} from "src/services/EmployeeResponse";
+} from "src/services/employee-response";
 import EmployeeForm from "../EmployeeForm/EmployeeForm";
 
 const defaultData = {

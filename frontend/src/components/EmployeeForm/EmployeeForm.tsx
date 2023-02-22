@@ -1,13 +1,13 @@
 import styles from "./EmployeeForm.module.scss";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Employee } from "src/services/EmployeeResponse";
-import { employeeFormSchema } from "../../validation/employeeFormSchema";
+import { Employee } from "src/services/employee-response";
+import { employeeFormSchema } from "../../validation/employee-form-schema";
 import {
     createEmployee,
     getEmployeeById,
     updateEmployee,
-} from "../../services/apiServices";
+} from "../../services/api-services";
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 

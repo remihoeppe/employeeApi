@@ -1,6 +1,6 @@
 import styles from "./EmployeeCard.module.scss";
 import Separator from "../Separator/Separator";
-import { Employee } from "src/services/EmployeeResponse";
+import { Employee } from "src/services/employee-response";
 import { getTenure } from "./../../validation/helper";
 import { NavLink } from "react-router-dom";
 

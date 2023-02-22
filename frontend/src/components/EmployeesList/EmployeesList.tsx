@@ -1,5 +1,5 @@
-import { archiveEmployee, getAllEmployees } from "./../../services/apiServices";
-import { Employee } from "src/services/EmployeeResponse";
+import { archiveEmployee, getAllEmployees } from "../../services/api-services";
+import { Employee } from "src/services/employee-response";
 import EmployeeCard from "../EmployeeCard/EmployeeCard";
 import Separator from "../Separator/Separator";
 
@@ -51,10 +51,10 @@ const EmployeesList = () => {
                 heightProp={"1px"}
                 backgroudColorProp={"grey"}
             />
-            {data.map((employee: Employee, index: any) => {
+            {data.map((employee: Employee) => {
                 return (
                     <EmployeeCard
-                        key={index}
+                        key={employee.id}
                         employee={employee}
                         onDelete={handleDelete}
                     />

@@ -11,7 +11,7 @@ import { Mock, vi } from "vitest";
 import EmployeesList from "./EmployeesList";
 import { BrowserRouter } from "react-router-dom";
 
-import employeesData from "./../../services/apiServices";
+import employeesData from "../../services/api-services";
 
 vi.mock("./../../services/apiServices");
 const employeeDataMock = employeesData as Mock;

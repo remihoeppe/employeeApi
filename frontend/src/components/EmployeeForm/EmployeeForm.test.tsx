@@ -13,7 +13,7 @@ import userEvent from "@testing-library/user-event";
 import EmployeeForm from "./OldEmployeeForm";
 import { BrowserRouter } from "react-router-dom";
 
-import employeesData from "./../../services/apiServices";
+import employeesData from "../../services/api-services";
 
 vi.mock("./../../services/apiServices");
 const employeeDataMock = employeesData as Mock;
