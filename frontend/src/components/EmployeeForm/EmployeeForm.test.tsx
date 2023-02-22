@@ -10,7 +10,7 @@ import {
 } from "@testing-library/react";
 import { Mock, vi } from "vitest";
 import userEvent from "@testing-library/user-event";
-import EmployeeForm from "./OldEmployeeForm";
+import EmployeeForm from "./EmployeeForm";
 import { BrowserRouter } from "react-router-dom";
 
 import employeesData from "../../services/api-services";
@@ -18,37 +18,45 @@ import employeesData from "../../services/api-services";
 vi.mock("./../../services/apiServices");
 const employeeDataMock = employeesData as Mock;
 
-const fetchedEmployee = {
-    id: 1,
-    firstName: "John",
-    middleName: "Bill",
-    lastName: "H.",
-    mobileNumber: "0411112222",
-    email: "Bob@bill.usa",
-    address: "Cali",
-    startDate: "1879-03-17",
-    endDate: "1889-06-30",
-    contractType: "Permanent",
-    timeBase: "Full time",
-    weeklyHours: "38",
-    deleted: false,
-    timeWithCompany: 10,
+const mockProps: any = {
+    fetchedEmployee: {
+        id: 1,
+        firstName: "John",
+        middleName: "Bill",
+        lastName: "Hope",
+        mobileNumber: "0411112222",
+        email: "Bob@bill.usa",
+        address: "Cali",
+        startDate: "1879-03-17",
+        endDate: "1889-06-30",
+        contractType: "Permanent",
+        timeBase: "Full time",
+        weeklyHours: "38",
+        deleted: false,
+        timeWithCompany: 10,
+    },
+    mockSubmit: vi.fn((newEmployeeData) => {
+        return Promise.resolve({ newEmployeeData });
+    }),
 };
 
 describe("Testing API call in EmployeForm component", async () => {
-    it("Should display pre-filled fields if the URL contains an valid ID", async () => {
-        employeeDataMock.mockReturnValue(fetchedEmployee);
-        console.log(fetchedEmployee);
-        console.log(fetchedEmployee.firstName);
-        const { getByText, getByLabelText } = render(
+    it("Should display pre-filled fields if the URL contains a valid ID", async () => {
+        const { getByRole } = render(
             <BrowserRouter>
-                <EmployeeForm />
+                <EmployeeForm
+                    onFormSubmit={mockProps.mockSubmit}
+                    employeeData={mockProps.fetchedEmployee}
+                />
             </BrowserRouter>,
         );
         await waitFor(async () => {
             expect(
-                screen.getByRole("textbox", { name: "First Name" }),
-            ).toHaveTextContent("John");
+                getByRole("textbox", { name: "First Name" }),
+            ).toHaveDisplayValue("John");
+            expect(
+                getByRole("textbox", { name: "Last Name" }),
+            ).toHaveDisplayValue("Hope");
         });
     });
 });
@@ -57,7 +65,10 @@ describe("Testing the EmployeeForm component", async () => {
     beforeEach(async () => {
         await render(
             <BrowserRouter>
-                <EmployeeForm />
+                <EmployeeForm
+                    onFormSubmit={mockProps.mockSubmit}
+                    employeeData={mockProps.fetchedEmployee}
+                />
             </BrowserRouter>,
         );
     });
@@ -122,7 +133,33 @@ describe("Testing the EmployeeForm component", async () => {
         ).toBeInTheDocument();
     });
 
-    it("Should trigger a call of the register() method every time the user modifies one of the fields", async () => {});
+    it("Should disable the enDate field when user clicks on onGoing checkbox", async () => {
+        const onGoing = screen.getByRole("checkbox", { name: "On Going" });
+        fireEvent.click(onGoing);
+        expect(onGoing).toBeChecked();
 
-    it("Should trigger a GET request when the user clicks on SAVE", async () => {});
+        const endDate = screen.getByRole("textbox", { name: "End Date" });
+        expect(endDate).toBeDisabled();
+    });
+
+    // it("Should display an error message if a field has been input incorrectly", async () => {
+    //     const firstNameInput = screen.getByRole("textbox", {
+    //         name: "First Name",
+    //     });
+    //     expect(firstNameInput).toHaveDisplayValue("John");
+
+    //     fireEvent.input(firstNameInput, { target: { value: "John999" } });
+    //     expect(firstNameInput).toHaveDisplayValue("John999");
+    //     const saveBtn = screen.getByText("Save");
+    //     console.log(saveBtn);
+    //     fireEvent.click(saveBtn);
+    //     expect(screen).toHaveTextContent(
+    //         "A name can only include letters from A to Z",
+    //     );
+    // });
+
+    // it("Should trigger the onSubmit function when user clicks on Save", async () => {
+    //     fireEvent.click(screen.getByText("Save"));
+    //     expect(mockProps.mockSubmit).toBeCalled();
+    // });
 });

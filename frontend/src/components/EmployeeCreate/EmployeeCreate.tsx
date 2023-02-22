@@ -21,7 +21,6 @@ const EmployeeCreate = () => {
     const [employee, setEmployee] = useState<Employee>(defaultData as Employee);
 
     const handleCreate = () => {
-        console.log("CreateFunction was called");
         createEmployee(employee as Employee);
     };
 
