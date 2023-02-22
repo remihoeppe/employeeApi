@@ -8,6 +8,19 @@ We need a web application to create, list, modify and delete employees.
 The application should consist of a Spring RESTful API and a React Typescript frontend.
 The schema for the employee is left to the criteria of the candidate.
 
+---
+
+-   [Stacks](#stacks)
+-   [Build Steps](#build-steps)
+-   [Design Approach](#design-approach)
+-   [Features](#features)
+-   [Known issues](#known-issues)
+-   [Future Goals](#future-goals)
+-   [Change Logs](#changelog)
+-   [Challenges](#challenges)
+
+---
+
 ## Stacks
 
 ## Frontend
@@ -75,7 +88,7 @@ Vite will display which port to access on your localhost (e.g. http://localhost:
 
 That's it. You have a full stack, locally run, application.
 
-## Design Goals / Approach
+## Design Approach
 
 The goal was to design an application allowing us to perform some basic CRUD operation. As with any React application, I decided to start as simple as possible when it came to component tree as I found that the less layer to handle the better.
 
@@ -213,7 +226,7 @@ I encountered some issues defining the running Context for this test suit config
 
 ---
 
-## What did you struggle with?
+## Challenges
 
 ### CORS Issues
 
