@@ -15,7 +15,7 @@ import java.util.NoSuchElementException;
 @RequestMapping("/api/v1/employee")
 // Default Vite Server Port TODO -> Will need to be changed once Frontend has
 //  been deployed to AWS
-@CrossOrigin(origins = "http://127.0.0.1:5173")
+@CrossOrigin("http://127.0.0.1:5173/")
 public class EmployeeController {
     private final EmployeeService employeeService;
 
@@ -28,12 +28,14 @@ public class EmployeeController {
     }
 
     @GetMapping("/")
+    @CrossOrigin
     public ResponseEntity<List<Employee>> getEmployees() {
         logger.info("All employees have been fetched from the database.");
         return new ResponseEntity<>(employeeService.getEmployees(), HttpStatus.OK);
     }
 
     @GetMapping("/{employeeId}")
+    @CrossOrigin
     public ResponseEntity getEmployeeById(@PathVariable Long employeeId) {
         try {
             Employee employee = employeeService.getEmployeeById(employeeId);
@@ -47,6 +49,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/")
+    @CrossOrigin
     public ResponseEntity registerNewEmployee(
             @Valid @RequestBody EmployeeDTO employeeData) {
         try {
@@ -63,9 +66,9 @@ public class EmployeeController {
         }
     }
 
-    @CrossOrigin(origins = "http://127.0.0.1:5173/")
-    @PutMapping("/{employeeId}")
 
+    @PutMapping("/{employeeId}")
+    @CrossOrigin
     // DO NOT THROW 404
     public ResponseEntity updateEmployee(
             @PathVariable Long employeeId, @RequestBody EmployeeDTO employeeData)
@@ -85,6 +88,7 @@ public class EmployeeController {
 
 
     @DeleteMapping(path = "{employeeId}")
+    @CrossOrigin
     public ResponseEntity deleteEmployee(@PathVariable("employeeId") Long employeeId) {
         try {
             employeeService.deleteEmployee(employeeId);

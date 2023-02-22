@@ -1,19 +1,7 @@
-import {
-    fireEvent,
-    getAllByText,
-    getByLabelText,
-    getByRole,
-    queryAllByRole,
-    render,
-    screen,
-    waitFor,
-} from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { Mock, vi } from "vitest";
-import userEvent from "@testing-library/user-event";
 import EmployeeCreate from "./EmployeeCreate";
 import { BrowserRouter } from "react-router-dom";
-
-import employeesData from "../../services/api-services";
 
 describe("", async () => {
     beforeEach(async () => {

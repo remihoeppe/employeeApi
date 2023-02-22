@@ -1,16 +1,7 @@
-import {
-    fireEvent,
-    getAllByText,
-    getByRole,
-    queryAllByRole,
-    render,
-    screen,
-    waitFor,
-} from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { Mock, vi } from "vitest";
 import EmployeeUpdate from "./EmployeeUpdate";
 import { BrowserRouter } from "react-router-dom";
-
 import employeesData from "../../services/api-services";
 
 vi.mock("./../../services/apiServices");
@@ -53,12 +44,10 @@ describe("Testing EmployeeUpdate Component", async () => {
         expect(employeeFormHeader).toHaveTextContent("Employee Details");
     });
 
-    it("Should display an EmployeeForm with empty fields", async () => {
+    it("Should display an EmployeeForm with filled fields", async () => {
         const fields = screen.getAllByRole("textbox");
         fields.map((field) => {
-            expect(field).toHaveTextContent("");
+            expect(field).toHaveTextContent("John");
         });
     });
-
-    it("", async () => {});
 });

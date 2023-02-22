@@ -1,12 +1,4 @@
-import {
-    fireEvent,
-    getAllByText,
-    getByRole,
-    queryAllByRole,
-    render,
-    screen,
-    waitFor,
-} from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { Mock, vi } from "vitest";
 import EmployeesList from "./EmployeesList";
 import { BrowserRouter } from "react-router-dom";
