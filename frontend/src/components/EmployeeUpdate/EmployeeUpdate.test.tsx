@@ -2,10 +2,6 @@ import { render, screen } from "@testing-library/react";
 import { Mock, vi } from "vitest";
 import EmployeeUpdate from "./EmployeeUpdate";
 import { BrowserRouter } from "react-router-dom";
-import employeesData from "../../services/api-services";
-
-vi.mock("./../../services/apiServices");
-const employeeDataMock = employeesData as Mock;
 
 const fetchedEmployee = {
     id: 1,
@@ -23,6 +19,8 @@ const fetchedEmployee = {
     deleted: false,
     timeWithCompany: 10,
 };
+
+vi.mock("axios");
 
 describe("Testing EmployeeUpdate Component", async () => {
     beforeEach(async () => {

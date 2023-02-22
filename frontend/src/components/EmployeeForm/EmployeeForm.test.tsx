@@ -142,24 +142,24 @@ describe("Testing the EmployeeForm component", async () => {
         expect(endDate).toBeDisabled();
     });
 
-    // it("Should display an error message if a field has been input incorrectly", async () => {
-    //     const firstNameInput = screen.getByRole("textbox", {
-    //         name: "First Name",
-    //     });
-    //     expect(firstNameInput).toHaveDisplayValue("John");
+    it("Should display an error message if a field has been input incorrectly", async () => {
+        const firstNameInput = screen.getByRole("textbox", {
+            name: "First Name",
+        });
+        expect(firstNameInput).toHaveDisplayValue("John");
 
-    //     fireEvent.input(firstNameInput, { target: { value: "John999" } });
-    //     expect(firstNameInput).toHaveDisplayValue("John999");
-    //     const saveBtn = screen.getByText("Save");
-    //     console.log(saveBtn);
-    //     fireEvent.click(saveBtn);
-    //     expect(screen).toHaveTextContent(
-    //         "A name can only include letters from A to Z",
-    //     );
-    // });
+        fireEvent.input(firstNameInput, { target: { value: "John999" } });
+        expect(firstNameInput).toHaveDisplayValue("John999");
+        const saveBtn = screen.getByText("Save");
+        console.log(saveBtn);
+        fireEvent.click(saveBtn);
+        expect(screen).toHaveTextContent(
+            "A name can only include letters from A to Z",
+        );
+    });
 
-    // it("Should trigger the onSubmit function when user clicks on Save", async () => {
-    //     fireEvent.click(screen.getByText("Save"));
-    //     expect(mockProps.mockSubmit).toBeCalled();
-    // });
+    it("Should trigger the onSubmit function when user clicks on Save", async () => {
+        fireEvent.click(screen.getByText("Save"));
+        expect(mockProps.mockSubmit).toBeCalled();
+    });
 });

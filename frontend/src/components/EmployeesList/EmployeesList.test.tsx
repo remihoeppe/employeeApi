@@ -4,9 +4,9 @@ import EmployeesList from "./EmployeesList";
 import { BrowserRouter } from "react-router-dom";
 
 import employeesData from "../../services/api-services";
+import axios, { AxiosResponse } from "axios";
 
 vi.mock("./../../services/apiServices");
-const employeeDataMock = employeesData as Mock;
 
 const fetchedData = [
     {
@@ -43,9 +43,17 @@ const fetchedData = [
     },
 ];
 
+const asyncMock = vi.fn().mockResolvedValue(fetchedData);
+
 describe("Testing EmployeesList Component", async () => {
     it("Renders the list of employees correctly", async () => {
-        employeeDataMock.mockReturnValue(fetchedData);
+        const myAxiosResponse = {
+            data: fetchedData,
+        } as AxiosResponse;
+
+        vi.spyOn(axios, "get").mockResolvedValue(myAxiosResponse.data);
+
+        console.log(myAxiosResponse.data);
         const { getByRole, getAllByTestId } = render(
             <BrowserRouter>
                 <EmployeesList />
@@ -58,7 +66,13 @@ describe("Testing EmployeesList Component", async () => {
     });
 
     it("Renders the correct information for the fechted employees", async () => {
-        employeeDataMock.mockReturnValue(fetchedData);
+        const myAxiosResponse = {
+            data: fetchedData,
+        } as AxiosResponse;
+
+        vi.spyOn(axios, "get").mockResolvedValue(myAxiosResponse.data);
+
+        console.log(myAxiosResponse.data);
         const { getByText } = render(
             <BrowserRouter>
                 <EmployeesList />
