@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getEmployeeById, updateEmployee } from "../../services/api-services";
 import {
@@ -27,14 +27,12 @@ const EmployeeUpdate = () => {
         defaultData as unknown as Employee,
     );
 
-    const handleUpdate = () => {
-        console.log("UpdateFunction was called");
-        updateEmployee(employee as UpdateEmployeeResponse);
+    const handleUpdate = (employeFormData: Employee) => {
+        updateEmployee(employeFormData as UpdateEmployeeResponse, id);
     };
 
     const getEmployeeDefaultData = async (id: string | undefined) => {
         const data = id ? await getEmployeeById(id) : defaultData;
-        console.log("Getting employeeByID:", data);
         setEmployee(data as Employee);
     };
 

@@ -38,7 +38,7 @@ public class EmployeeService {
 
 	    public Employee addNewEmployee(EmployeeDTO employeeData) {
             Boolean emailExists =
-                    employeeRepository.selectExistsEmail(employeeData.getEmail());
+                    employeeRepository.existsByEmail(employeeData.getEmail());
             if (emailExists) {
                 throw new IllegalStateException("This email is already taken");
             };
@@ -55,7 +55,7 @@ public class EmployeeService {
                 updatedEmployee =  employeeRepository.findById(employeeId).get();
             } else {
                 Boolean emailExists =
-                        employeeRepository.selectExistsEmail(employeeData.getEmail());
+                        employeeRepository.existsByEmail(employeeData.getEmail());
                 if (emailExists) {
                     throw new IllegalStateException("This email is already taken");
                 };

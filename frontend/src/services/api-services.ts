@@ -11,7 +11,7 @@ import {
 export async function getEmployeeById(employeeId: any) {
     try {
         const { data, status } = await http.get<Employee>(
-            `/employee/${employeeId}`,
+            `/employees/${employeeId}`,
         );
 
         return data;
@@ -35,7 +35,7 @@ export async function getEmployeeById(employeeId: any) {
 export async function archiveEmployee(employeeId: string) {
     try {
         const { data, status } = await http.delete<ArchiveEmployeResponse>(
-            `/employee/${employeeId}`,
+            `/employees/${employeeId}`,
         );
 
         console.log("Response is: ", data);
@@ -61,7 +61,7 @@ export async function archiveEmployee(employeeId: string) {
 export async function getAllEmployees() {
     try {
         const { data, status } = await http.get<Array<GetEmployeesResponse>>(
-            "/employee/",
+            "/employees",
         );
 
         return data;
@@ -85,7 +85,7 @@ export async function getAllEmployees() {
 export async function createEmployee(employeeData: CreateEmployeeResponse) {
     try {
         const { data, status } = await http.post<CreateEmployeeResponse>(
-            "/employee",
+            "/employees",
             employeeData,
         );
         console.log(`Request Successful, Status: ${status}`);
@@ -107,10 +107,13 @@ export async function createEmployee(employeeData: CreateEmployeeResponse) {
     }
 }
 
-export async function updateEmployee(employeeData: UpdateEmployeeResponse) {
+export async function updateEmployee(
+    employeeData: UpdateEmployeeResponse,
+    employeeId: string,
+) {
     try {
         const { data, status } = await http.put<UpdateEmployeeResponse>(
-            "/employee/",
+            `/employees/${employeeId}`,
             employeeData,
         );
         console.log(`Request Successful, Status: ${status}`);

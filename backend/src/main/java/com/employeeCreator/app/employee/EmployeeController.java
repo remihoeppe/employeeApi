@@ -12,10 +12,10 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("/api/v1/employee")
+@RequestMapping("/employees")
 // Default Vite Server Port TODO -> Will need to be changed once Frontend has
 //  been deployed to AWS
-@CrossOrigin("http://127.0.0.1:5173/")
+@CrossOrigin("http://127.0.0.1:5173")
 public class EmployeeController {
     private final EmployeeService employeeService;
 
@@ -27,7 +27,7 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     @CrossOrigin
     public ResponseEntity<List<Employee>> getEmployees() {
         logger.info("All employees have been fetched from the database.");
@@ -48,7 +48,7 @@ public class EmployeeController {
         }
     }
 
-    @PostMapping("/")
+    @PostMapping
     @CrossOrigin
     public ResponseEntity registerNewEmployee(
             @Valid @RequestBody EmployeeDTO employeeData) {

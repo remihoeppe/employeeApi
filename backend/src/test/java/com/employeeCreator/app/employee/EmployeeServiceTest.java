@@ -88,7 +88,7 @@ class EmployeeServiceTest {
                 "Full Time",
                 "38"
         );
-        given(employeeRepository.selectExistsEmail(anyString())).willReturn(true);
+        given(employeeRepository.existsByEmail(anyString())).willReturn(true);
         //When - Then
         assertThatThrownBy(() -> underTest.addNewEmployee(newEmployee))
                 .isInstanceOf(IllegalStateException.class)

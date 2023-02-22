@@ -38,7 +38,7 @@ class EmployeeRepositoryTest {
         );
         underTest.save(employee);
         //When
-        boolean emailExist = underTest.selectExistsEmail(email);
+        boolean emailExist = underTest.existsByEmail(email);
         //Then
         assertThat(emailExist).isTrue();
     }
@@ -48,7 +48,7 @@ class EmployeeRepositoryTest {
         //Given
         String email = "NewEmployee@bill.com";
         //When
-        boolean emailExist = underTest.selectExistsEmail(email);
+        boolean emailExist = underTest.existsByEmail(email);
         //Then
         assertThat(emailExist);
         assertThat(emailExist).isFalse();

@@ -18,15 +18,16 @@ const defaultData = {
 };
 
 const EmployeeCreate = () => {
-    const [employee, setEmployee] = useState<Employee>(defaultData as Employee);
-
-    const handleCreate = () => {
-        createEmployee(employee as Employee);
+    const handleCreate = (employeFormData: Employee) => {
+        createEmployee(employeFormData as Employee);
     };
 
     return (
         <>
-            <EmployeeForm employeeData={employee} onFormSubmit={handleCreate} />
+            <EmployeeForm
+                employeeData={defaultData as Employee}
+                onFormSubmit={handleCreate}
+            />
         </>
     );
 };
