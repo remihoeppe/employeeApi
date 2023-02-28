@@ -21,7 +21,7 @@ const mockProps: any = {
         weeklyHours: "30",
         deleted: false,
     },
-    onDelete: vi.fn((e: any) => "onDelete has been called"),
+    onDelete: vi.fn(() => {}),
 };
 
 describe("Testing EmployeeCard", () => {
@@ -37,7 +37,7 @@ describe("Testing EmployeeCard", () => {
     });
 
     afterEach(async () => {
-        await vi.clearAllMocks();
+        await vi.restoreAllMocks();
     });
 
     it("Should call onDelete function when user clicks on Remove", async () => {

@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { createEmployee } from "../../services/api-services";
 import { Employee } from "src/services/employee-response";
 import EmployeeForm from "../EmployeeForm/EmployeeForm";

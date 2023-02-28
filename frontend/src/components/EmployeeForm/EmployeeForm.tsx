@@ -4,27 +4,16 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Employee } from "./../../services/employee-response";
 import { employeeFormSchema } from "../../validation/employee-form-schema";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface EmployeeFormProps {
     employeeData: Employee;
     onFormSubmit: any;
 }
 
-const defaultData = {
-    firstName: "",
-    middleName: "",
-    lastName: "",
-    mobileNumber: "",
-    email: "",
-    address: "",
-    startDate: "",
-    endDate: "",
-    contractType: "",
-    timeBase: "",
-    weeklyHours: "",
-};
-
 const EmployeeForm = ({ employeeData, onFormSubmit }: EmployeeFormProps) => {
+    let navigate = useNavigate();
+
     const {
         register,
         handleSubmit,
@@ -44,6 +33,7 @@ const EmployeeForm = ({ employeeData, onFormSubmit }: EmployeeFormProps) => {
     const onSubmit: SubmitHandler<Employee> = (data) => {
         console.log(data);
         onFormSubmit(data);
+        navigate("/employees");
     };
 
     const handleOnGoingClick = () => {
