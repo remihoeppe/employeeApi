@@ -4,16 +4,18 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Employee } from "./../../services/employee-response";
 import { employeeFormSchema } from "../../validation/employee-form-schema";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 interface EmployeeFormProps {
     employeeData: Employee;
     onFormSubmit: any;
+    onFormCancel: any;
 }
 
-const EmployeeForm = ({ employeeData, onFormSubmit }: EmployeeFormProps) => {
-    let navigate = useNavigate();
-
+const EmployeeForm = ({
+    employeeData,
+    onFormSubmit,
+    onFormCancel,
+}: EmployeeFormProps) => {
     const {
         register,
         handleSubmit,
@@ -33,7 +35,6 @@ const EmployeeForm = ({ employeeData, onFormSubmit }: EmployeeFormProps) => {
     const onSubmit: SubmitHandler<Employee> = (data) => {
         console.log(data);
         onFormSubmit(data);
-        navigate("/employees");
     };
 
     const handleOnGoingClick = () => {
@@ -327,7 +328,7 @@ const EmployeeForm = ({ employeeData, onFormSubmit }: EmployeeFormProps) => {
                         </button>
                         <button
                             type="button"
-                            onClick={() => reset()}
+                            onClick={() => onFormCancel()}
                             className={styles.EmployeeForm__Btns_BtnCancel}>
                             Cancel
                         </button>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getEmployeeById, updateEmployee } from "../../services/api-services";
 import {
     Employee,
@@ -22,13 +22,21 @@ const defaultData = {
 };
 
 const EmployeeUpdate = () => {
+    let navigate = useNavigate();
+    const [updated, setUpdated] = useState(false);
     const { id } = useParams();
+
     const [employee, setEmployee] = useState<Employee>(
         defaultData as unknown as Employee,
     );
 
     const handleUpdate = (employeFormData: Employee) => {
         updateEmployee(employeFormData as UpdateEmployeeResponse, id);
+        setUpdated(true);
+    };
+
+    const handleCancel = () => {
+        navigate("/employees");
     };
 
     const getEmployeeDefaultData = async (id: string | undefined) => {
@@ -43,7 +51,16 @@ const EmployeeUpdate = () => {
 
     return (
         <>
-            <EmployeeForm employeeData={employee} onFormSubmit={handleUpdate} />
+            <EmployeeForm
+                employeeData={employee}
+                onFormSubmit={handleUpdate}
+                onFormCancel={handleCancel}
+            />
+            {updated ? (
+                <h3>Employee with ID {`${id}`} has been updated</h3>
+            ) : (
+                ""
+            )}
         </>
     );
 };
